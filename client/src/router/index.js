@@ -1,0 +1,37 @@
+import { createWebHistory, createRouter } from "vue-router";
+import GdrSettingComponent from "@/components/GdrSettingComponent.vue";
+import WeightComponent from "@/components/WeightComponent.vue";
+import InsertCourseComponent from "@/components/InsertCourseComponent.vue";
+import HomeComponent from "@/components/HomeComponent.vue"
+
+const routes = [
+  {
+    path: "/",
+    name: "home",
+    component: HomeComponent,
+  },
+  {
+    path: "/model",
+    name: "gdr-setting",
+    component: GdrSettingComponent,
+  },
+  {
+    path: "/weight",
+    name: "weight",
+    component: WeightComponent,
+    //props: true
+  },
+  {
+    path: "/insert-course",
+    name: "insert-course",
+    component: InsertCourseComponent,
+    //props: true
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;
