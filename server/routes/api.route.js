@@ -1,10 +1,22 @@
 const express = require("express");
 const apiRoute = express.Router();
 
-//student model
+//model
 let courseModel = require("../models/Course.js");
 let criteriaModel = require("../models/Criteria.js");
 
+//get all data
+apiRoute.route("/get-course-data").get((req, res, next) => {
+  courseModel.find((error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  })
+});
+
+//get criteria distinct
 apiRoute.route("/get-criteria").get((req, res, next) => {
   criteriaModel.find((error, data) => {
     if (error) {
@@ -16,7 +28,7 @@ apiRoute.route("/get-criteria").get((req, res, next) => {
 });
 
 
-//get course data
+//get course distinct
 apiRoute.route("/get-course").get((req, res, next) => {
   courseModel.find().distinct('course',(error, data) => {
     if (error) {
@@ -27,6 +39,7 @@ apiRoute.route("/get-course").get((req, res, next) => {
   })
 });
 
+//get university distinct
 apiRoute.route("/get-university").get((req, res, next) => {
   courseModel.find().distinct('university',(error, data) => {
     if (error) {
@@ -37,7 +50,7 @@ apiRoute.route("/get-university").get((req, res, next) => {
   })
 });
 
-//edit student data
+//get by course
 apiRoute.route("/get-detail/:course").get((req, res, next) => {
   courseModel.find({'course':req.params.course}, (error, data) => {
     if (error) {
@@ -48,6 +61,7 @@ apiRoute.route("/get-detail/:course").get((req, res, next) => {
   });
 });
 
+//insert course
 apiRoute.route("/insert-course/").post((req, res, next) =>{
   courseModel.create(req.body.text,(error, data) => {
     if (error) {
@@ -58,6 +72,19 @@ apiRoute.route("/insert-course/").post((req, res, next) =>{
   });
 })
 
+//delete course data
+apiRoute.route("/delete-course/:id").delete((req, res, next) => {
+  courseModel.findByIdAndDelete(req.params.id, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.status(200).json({
+        msg: data,
+      });
+      //console.log("successfully delete");
+    }
+  });
+});
 /*
 //update student data
 apiRoute.route("/update-student/:id").put((req, res, next) => {
@@ -75,20 +102,8 @@ apiRoute.route("/update-student/:id").put((req, res, next) => {
       }
     }
   );
-});
+});*/
 
-//delete student data
-apiRoute.route("/delete-student/:id").delete((req, res, next) => {
-  courseModel.findByIdAndDelete(req.params.id, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.status(200).json({
-        msg: data,
-      });
-      console.log("Student successfully delete");
-    }
-  });
-});
-*/
+
+
 module.exports = apiRoute;

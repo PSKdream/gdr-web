@@ -1,15 +1,27 @@
 <template>
   <div>
-    <!-- Nav bar -->  
-    <nav class="navbar navbar-dark bg-secondary justify-content-between flex-nowrap flex-row">
+    <!-- Nav bar -->
+    <nav
+      class="
+        navbar navbar-dark
+        bg-secondary bg-opacity-75
+        justify-content-between
+        flex-nowrap flex-row
+      "
+    >
       <div class="container">
-        <router-link to="/" class="navbar-brand float-left">Graduate Degree Recommender System</router-link>
+        <router-link to="/" class="navbar-brand float-left"
+          >Graduate Degree Recommender System</router-link
+        >
         <ul class="nav navbar-nav flex-row float-right">
           <li class="nav-item">
-            <router-link to="/model" class="nav-link pe-3">Model</router-link>
+            <router-link to="/model" class="nav-link pe-3 text-white"
+              >Model</router-link
+            >
           </li>
+
           <li class="nav-item">
-            <router-link to="/" class="nav-link">test2</router-link>
+            <router-link to="/" class="nav-link text-white">test2</router-link>
           </li>
         </ul>
       </div>
@@ -21,3 +33,4 @@
     </div>
   </div>
 </template>
+

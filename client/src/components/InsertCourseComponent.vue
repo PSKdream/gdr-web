@@ -100,7 +100,7 @@ export default {
             university: this.university,
             criteria: criteria,
           });
-          this.$router.push("/")
+          this.$router.push("/course")
         } catch (err) {
           alert(err);
         }

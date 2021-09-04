@@ -3,6 +3,7 @@ import GdrSettingComponent from "@/components/GdrSettingComponent.vue";
 import WeightComponent from "@/components/WeightComponent.vue";
 import InsertCourseComponent from "@/components/InsertCourseComponent.vue";
 import HomeComponent from "@/components/HomeComponent.vue"
+import CourseComponent from "@/components/Course/CourseComponent.vue";
 
 const routes = [
   {
@@ -25,6 +26,12 @@ const routes = [
     path: "/insert-course",
     name: "insert-course",
     component: InsertCourseComponent,
+    //props: true
+  },
+  {
+    path: "/course",
+    name: "course",
+    component: CourseComponent,
     //props: true
   },
 ];

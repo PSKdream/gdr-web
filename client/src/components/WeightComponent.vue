@@ -55,15 +55,15 @@
     <div class="col-md-10 card pb-3 mt-5 mb-5">
       <CriteriaWeight
         @onSubmit="CriteriaWeightReturn"
-        v-if="criteria_matrix === null"
+        v-if="criteria_eigenvector === null"
       ></CriteriaWeight>
       <Universityweight
         @onSubmit="UniversityWeightReturn"
-        v-if="criteria_matrix !== null && university_matrix == null"
+        v-if="criteria_eigenvector !== null && university_eigenvector == null"
       ></Universityweight>
       <div
         class="summary mt-4 mb-2"
-        v-if="criteria_matrix !== null && university_matrix != null"
+        v-if="criteria_eigenvector !== null && university_eigenvector != null"
       >
         <div class="ms-5 me-5 mt-3">
           <h2 class="text-center" style="margin-top: 20px">My decision</h2>
@@ -112,35 +112,25 @@
         </div>
       </div>
     </div>
-  </div>
-  <p>{{ criteria_choose }}</p>
-  <p>{{ university_choose }}</p>
+    <p>{{ criteria_choose }}</p>
+    <p>{{ university_choose }}</p>
 
-  <p>{{ criteria_matrix }}</p>
-  <p>{{ university_matrix }}</p>
-  <p>c_sum : {{ criteria_matrix_sum_column }}</p>
-  <p>c_avg : {{ criteria_avg }}</p>
-  <p>u_sum : {{ university_matrix_sum_column }}</p>
-  <p>u_avg : {{ university_avg }}</p>
-  <p>summary : {{ summary }}</p>
+    <p>c_eigen : {{ criteria_eigenvector }}</p>
+    <p>u_eigen : {{ university_eigenvector }}</p>
+    <p>summary : {{ summary }}</p>
+  </div>
 </template>
 
 <script>
-//v-if="criteria_matrix === null"
 import CriteriaWeight from "./Weight/CriteriaWeight.vue";
 import Universityweight from "./Weight/UniversityWeight.vue";
 export default {
   data() {
     return {
       progress: 0,
-      //matrixSize: null,
-      criteria_matrix: null,
-      criteria_matrix_sum_column: null,
-      criteria_avg: null,
 
-      university_matrix: null,
-      university_matrix_sum_column: null,
-      university_avg: null,
+      criteria_eigenvector: null,
+      university_eigenvector: null,
 
       summary: null,
       chart_decision: [],
@@ -169,68 +159,33 @@ export default {
   },
   methods: {
     CriteriaWeightReturn(value) {
-      this.criteria_matrix = value;
-      this.criteria_matrix_sum_column = this.sumColumnMatrix(value);
-      this.criteria_avg = this.avgTopicMatrix(
-        value,
-        this.criteria_matrix_sum_column
-      );
+      this.criteria_eigenvector = value;
       this.progress = 50;
     },
-    avgTopicMatrix(matrixValue, sumColumn) {
-      let avg = new Array(sumColumn.length);
-      for (let row = 0; row < sumColumn.length; row++) {
-        for (let col = 0; col < sumColumn.length; col++) {
-          if (avg[row] == null) avg[row] = 0;
-          //console.log(matrixValue.get(row, col),'/',sumColumn[row])
-          avg[row] += matrixValue.get(row, col) / sumColumn[col];
-        }
-        avg[row] /= sumColumn.length;
-      }
-      return avg;
-    },
-    sumColumnMatrix(matrix) {
-      let sumArr = new Array(matrix.shape[0]);
-      for (let i = 0; i < matrix.shape[0]; i++) {
-        for (let j = 0; j < matrix.shape[0]; j++) {
-          if (sumArr[i] == null) sumArr[i] = 0;
-          sumArr[i] += matrix.get(j, i);
-        }
-      }
-      return sumArr;
-    },
     UniversityWeightReturn(value) {
-      this.university_matrix = value;
       this.progress = 100;
-      this.university_matrix_sum_column = new Array(value.length);
-      this.university_avg = new Array(value.length);
-      for (let i = 0; i < value.length; i++) {
-        this.university_matrix_sum_column[i] = this.sumColumnMatrix(value[i]);
-        this.university_avg[i] = this.avgTopicMatrix(
-          value[i],
-          this.university_matrix_sum_column[i]
-        );
-      }
+      this.university_eigenvector = value;
 
       //summary
-      this.summary = new Array(this.university_avg.length);
-      for (let uni = 0; uni < this.university_avg.length; uni++) {
-        for (let cri = 0; cri < this.criteria_avg.length; cri++) {
+      this.summary = new Array(this.university_choose.length);
+      for (let uni = 0; uni < this.university_choose.length; uni++) {
+        for (let cri = 0; cri < this.criteria_eigenvector.length; cri++) {
           if (this.summary[uni] == null) {
             this.summary[uni] = 0;
           }
           this.summary[uni] +=
-            this.university_avg[cri][uni] * this.criteria_avg[cri];
+            this.university_eigenvector[cri][uni] *
+            this.criteria_eigenvector[cri];
         }
       }
 
       //-----Part Chart----
       this.chart_criteria_importance = [];
-      for (let index = 0; index < this.criteria_avg.length; index++) {
+      for (let index = 0; index < this.criteria_eigenvector.length; index++) {
         //chart_criteria_importance
         this.chart_criteria_importance.push([
           this.criteria_choose[index],
-          this.criteria_avg[index],
+          this.criteria_eigenvector[index],
         ]);
       }
 
@@ -243,30 +198,33 @@ export default {
           this.summary[uni],
         ]);
       }
-      for (let uni = 0; uni < this.university_avg.length; uni++) {
+      for (let uni = 0; uni < this.university_eigenvector.length; uni++) {
         //chart_alternatives
         let arr = [];
-        for (let cri = 0; cri < this.criteria_avg.length; cri++) {
+        for (let cri = 0; cri < this.criteria_eigenvector.length; cri++) {
           arr.push([
             this.criteria_choose[cri],
-            this.university_avg[cri][uni] * this.criteria_avg[uni],
+            this.university_eigenvector[cri][uni] *
+              this.criteria_eigenvector[uni],
           ]);
         }
-        console.log(arr);
+        //console.log(arr);
         this.chart_alternatives.push(arr);
       }
-      //console.log(this.university_avg);
-      console.log(this.chart_alternatives);
+      //console.log(this.university_eigenvector);
+      //console.log(this.chart_alternatives);
     },
     onClickChangeProgress(State) {
       switch (State) {
         case 1:
-          this.criteria_matrix = null;
-          this.university_matrix = null;
+          this.criteria_eigenvector = null;
+          this.university_eigenvector = null;
+          this.summary = null;
           this.progress = 0;
           break;
         case 2:
-          this.university_matrix = null;
+          this.university_eigenvector = null;
+          this.summary = null;
           this.progress = 50;
           break;
       }
