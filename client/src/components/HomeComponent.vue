@@ -1,27 +1,38 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <h1 class="text-center">Home page</h1>
-      <div class="mt-4 text-center">
-        <button type="button" class="btn btn-warning" @click="this.$router.push('/model')">model</button>
-      </div>
-      <div class="mt-4 text-center">
-        <button type="button" class="btn btn-info" @click="this.$router.push('/course')">
-          course management
-        </button>
-      </div>
+    <SearchComponent></SearchComponent>
+    <CardComponent></CardComponent>
+    <MemberComponent></MemberComponent>
+    <div class="text-center footer">
+      <p>© 2021 Graduate Degree Recommender System</p>
     </div>
   </div>
 </template>
 
 <script>
+import SearchComponent from "./Home/SearchComponent.vue";
+import CardComponent from "./Home/CardComponent.vue";
+import MemberComponent from "./Home/MemberComponent.vue";
 export default {
   data() {
     return {};
   },
+  components: {
+    SearchComponent,
+    CardComponent,
+    MemberComponent,
+  },
 };
 </script>
 
+<style scoped>
+.footer {
+  width: 100vw;
+  max-width: 100vw;
+  height: 1.5em;
+  background: #e6e6e6;
+}
+</style>
 
 
 

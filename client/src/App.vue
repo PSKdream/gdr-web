@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- Nav bar -->
+    <!-- Nav bar bg-opacity-75-->
     <nav
       class="
         navbar navbar-dark
-        bg-secondary bg-opacity-75
+        bg-dark 
         justify-content-between
         flex-nowrap flex-row
       "
@@ -28,7 +28,7 @@
     </nav>
 
     <!-- Router view -->
-    <div class="container mt-5">
+    <div class="container">
       <router-view></router-view>
     </div>
   </div>
