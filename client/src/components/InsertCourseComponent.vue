@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-5">
     <div class="col-md-7 card mb-5 ps-0 pe-0">
       <!-- Content goes here -->
       <div class="card-header">

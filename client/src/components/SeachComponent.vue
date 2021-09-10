@@ -566,11 +566,11 @@
         <div class="card mb-3" style="max-width: 540px">
           <div class="row g-0 ">
             <div class="col-md-4 ps-1 d-flex align-items-center justify-content-center">
-              <img src="../assets/logo.png" class="img-fluid rounded-start image-card"/>
+              <img src="../assets/doc.jpg" class="img-fluid rounded-start image-card"/>
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title"> <a class="link-dark" href="/course-provider">Card title</a> </h5>
+                <h5 class="card-title"> <a class="link-dark" href="/course-provider">Doctoral</a> </h5>
                 <p class="card-text">
                   This is a wider card with supporting text below as a natural
                   lead-in to additional content. This content is a little bit

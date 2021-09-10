@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-5">
     <!-- Progress Bar -->
     <div class="position-relative m-4 mb-5 col-md-6">
       <div class="progress" style="height: 1px">
@@ -112,12 +112,14 @@
         </div>
       </div>
     </div>
+    <!-- 
     <p>{{ criteria_choose }}</p>
     <p>{{ university_choose }}</p>
 
     <p>c_eigen : {{ criteria_eigenvector }}</p>
     <p>u_eigen : {{ university_eigenvector }}</p>
     <p>summary : {{ summary }}</p>
+    -->
   </div>
 </template>
 

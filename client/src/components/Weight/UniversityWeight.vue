@@ -6,7 +6,7 @@
       v-for="(cri, index) in criteria_choose"
       :key="index"
     >
-      <h3>Criteria : {{ cri }}</h3>
+      <h5>Criteria : {{ cri }}</h5>
       <div
         class="University-Weight"
         v-for="(uni1, index1) in university_choose"
@@ -109,11 +109,13 @@
         </a>
       </h6>
     </div>
+    <!-- 
     <p>{{ university_matrix }}</p>
     <p>{{ criteria_choose }}</p>
     <p>{{ university_choose }}</p>
     <p>c {{ text_c }}</p>
     <p>d {{ text_d }}</p>
+    -->
   </div>
 </template>
 

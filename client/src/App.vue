@@ -21,7 +21,7 @@
           </li>
 
           <li class="nav-item">
-            <router-link to="/" class="nav-link text-white">test2</router-link>
+            <router-link to="/course" class="nav-link text-white">Course(Admin)</router-link>
           </li>
         </ul>
       </div>

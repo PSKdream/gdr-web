@@ -98,10 +98,12 @@
         </a>
       </h6>
     </div>
+    <!-- 
     <p>{{ criteria_matrix }}</p>
     <p>eigenvector {{ criteria_eigenvector }}</p>
     <p>c {{ text_c }}</p>
     <p>d {{ text_d }}</p>
+    -->
   </div>
 </template>
 
