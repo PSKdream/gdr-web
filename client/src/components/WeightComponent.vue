@@ -65,13 +65,21 @@
         class="summary mt-4 mb-2"
         v-if="criteria_eigenvector !== null && university_eigenvector != null"
       >
-        <div class="d-flex justify-content-center mt-3">
-          <h3 class="fst-italic">
-            <i class="bi bi-bar-chart-line pe-1"></i> My decision is
-          </h3>
-          <h3 class="text-danger ps-2 fst-italic">
-            {{ " " + chart_decision[0][0] }}
-          </h3>
+        <div class="mt-3">
+          <div class="d-flex justify-content-center">
+            <h2 class="fst-italic">
+              <i class="bi bi-bar-chart-line pe-1"></i> Ranking
+            </h2>
+          </div>
+          <div class="d-flex justify-content-center mt-1">
+            <h4>
+              <ol>
+                <li v-for="item in chart_decision" :key="item">
+                  {{ item[0] }}
+                </li>
+              </ol>
+            </h4>
+          </div>
         </div>
         <div class="ms-5 me-5 mt-4">
           <div class="mt-3 border-dark border-bottom border-2">
