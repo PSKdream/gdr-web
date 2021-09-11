@@ -192,6 +192,7 @@ export default {
     },
     onClickNext() {
       let size = this.criteria_choose.length;
+      let textConfrimCR = "";
       for (let i = 0; i < size; i++) {
         if (this.checkZero(this.university_matrix[i]) === true) return;
 
@@ -205,14 +206,15 @@ export default {
         );
 
         if (cr >= 0.1) {
-          alert(
-            "Consistency Ratio is unacceptable.\n" +
-              "Criteria :" + this.criteria_choose[i]+
-              "\nC.R. : " +
-              cr
-          );
-          return;
+          textConfrimCR += "   Criteria : " + this.criteria_choose[i] + "\n   C.R. : " + cr +'\n';
         }
+      }
+      if (textConfrimCR != "") {
+        let confirmCR = confirm(
+          "Consistency Ratio is unacceptable.\n" +
+            textConfrimCR
+        );
+        if (confirmCR === false) return;
       }
       this.$emit("onSubmit", this.university_eigenvector);
     },

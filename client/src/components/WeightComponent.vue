@@ -66,22 +66,41 @@
         v-if="criteria_eigenvector !== null && university_eigenvector != null"
       >
         <div class="ms-5 me-5 mt-3">
-          <h2 class="text-center" style="margin-top: 20px">My decision</h2>
-          <bar-chart
-            :data="chart_decision"
-            height="230px"
-            :colors="colors"
-            :round="4"
-            :max="1"
-          >
-          </bar-chart>
+          <div class="mt-3 border-dark border-bottom border-2">
+            <h5 class="mb-0">
+              <a
+                class="d-flex p-2 justify-content-between link-dark item-header"
+              >
+                My decision
+              </a>
+            </h5>
+          </div>
+          <div class="ms-5 me-5">
+            <bar-chart
+              class="mt-4"
+              :data="chart_decision"
+              height="230px"
+              :colors="colors_rank"
+              :round="4"
+              :max="1"
+            >
+            </bar-chart>
+          </div>
         </div>
         <div class="ms-5 me-5 mt-5">
-          <h2 class="text-center" style="margin-top: 100px">
-            Criteria importance
-          </h2>
+          <div class="mt-3 border-dark border-bottom border-2">
+            <h5 class="mb-0">
+              <a
+                class="d-flex p-2 justify-content-between link-dark item-header"
+              >
+                Criteria importance
+                <i class="bi bi-plus"></i>
+              </a>
+            </h5>
+          </div>
+          <div class="ms-5 me-5">
           <bar-chart
-            class="mb-5"
+            class="mb-5 mt-4"
             :data="chart_criteria_importance"
             :colors="colors"
             height="230px"
@@ -89,17 +108,24 @@
             :max="1"
           >
           </bar-chart>
-        </div>
+        </div></div>
         <div class="m-5">
-          <h2 class="text-center" style="margin-top: 100px">
-            Alternatives rankings with structure
-          </h2>
+          <div class="mt-3 border-dark border-bottom border-2">
+            <h5 class="mb-0">
+              <a
+                class="d-flex p-2 justify-content-between link-dark item-header"
+              >
+                Alternatives rankings with structure
+                <i class="bi bi-plus"></i>
+              </a>
+            </h5>
+          </div>
           <div
-            class="mt-3"
+            class="mt-3 ms-5 me-5"
             v-for="(uni, index) in university_choose"
             :key="index"
           >
-            <h5>{{ uni }}</h5>
+            <h6 class="text-center pt-2">{{ uni }}</h6>
             <bar-chart
               :data="chart_alternatives[index]"
               :colors="colors"
@@ -138,9 +164,10 @@ export default {
       chart_decision: [],
       chart_criteria_importance: [],
       chart_alternatives: [],
+      colors_rank: ["#fee1e8"],
       colors: [
-        "#c6dbda",
         "#fee1e8",
+        "#c6dbda",
         "#fed7c3",
         "#f6eac2",
         "#ecd5e3",
@@ -160,6 +187,11 @@ export default {
     Universityweight,
   },
   methods: {
+    ObjectSort(object) {
+      object.sort(function (a, b) {
+        return a[1] > b[1] ? -1 : a[1] === b[1] ? 0 : 1;
+      });
+    },
     CriteriaWeightReturn(value) {
       this.criteria_eigenvector = value;
       this.progress = 50;
@@ -182,26 +214,33 @@ export default {
       }
 
       //-----Part Chart----
-      this.chart_criteria_importance = [];
-      for (let index = 0; index < this.criteria_eigenvector.length; index++) {
-        //chart_criteria_importance
-        this.chart_criteria_importance.push([
-          this.criteria_choose[index],
-          this.criteria_eigenvector[index],
-        ]);
-      }
-
       this.chart_decision = [];
+      this.chart_criteria_importance = [];
       this.chart_alternatives = [];
+
+      //color
+
+      //chart_decision
       for (let uni = 0; uni < this.university_choose.length; uni++) {
-        //chart_decision
+        this.colors_rank.push("#abdee6");
         this.chart_decision.push([
           this.university_choose[uni],
           this.summary[uni],
         ]);
       }
+      this.ObjectSort(this.chart_decision);
+
+      //chart_criteria_importance
+      for (let index = 0; index < this.criteria_eigenvector.length; index++) {
+        this.chart_criteria_importance.push([
+          this.criteria_choose[index],
+          this.criteria_eigenvector[index],
+        ]);
+      }
+      this.ObjectSort(this.chart_criteria_importance);
+
+      //chart_alternatives
       for (let uni = 0; uni < this.university_eigenvector.length; uni++) {
-        //chart_alternatives
         let arr = [];
         for (let cri = 0; cri < this.criteria_eigenvector.length; cri++) {
           arr.push([
@@ -210,7 +249,6 @@ export default {
               this.criteria_eigenvector[uni],
           ]);
         }
-        //console.log(arr);
         this.chart_alternatives.push(arr);
       }
       //console.log(this.university_eigenvector);
@@ -234,3 +272,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.card-body {
+  padding: 0rem 0rem;
+}
+.item-header {
+  color: #161515;
+  text-decoration: none;
+}
+.item-header:hover {
+  cursor: pointer;
+}
+</style>

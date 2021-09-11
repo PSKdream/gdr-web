@@ -189,8 +189,9 @@ export default {
       );
 
       if (cr >= 0.1) {
-        alert("Consistency Ratio is unacceptable.\n" + "C.R. : " + cr);
-        return;
+        let confirmCR = confirm("Consistency Ratio is unacceptable.\n" + "C.R. : " + cr)
+        if(confirmCR === false)
+          return;
       }
 
       this.$emit("onSubmit", this.criteria_eigenvector);
