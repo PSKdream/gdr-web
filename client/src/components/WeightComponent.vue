@@ -65,13 +65,21 @@
         class="summary mt-4 mb-2"
         v-if="criteria_eigenvector !== null && university_eigenvector != null"
       >
-        <div class="ms-5 me-5 mt-3">
+        <div class="d-flex justify-content-center mt-3">
+          <h3 class="fst-italic">
+            <i class="bi bi-bar-chart-line pe-1"></i> My decision is
+          </h3>
+          <h3 class="text-danger ps-2 fst-italic">
+            {{ " " + chart_decision[0][0] }}
+          </h3>
+        </div>
+        <div class="ms-5 me-5 mt-4">
           <div class="mt-3 border-dark border-bottom border-2">
             <h5 class="mb-0">
               <a
                 class="d-flex p-2 justify-content-between link-dark item-header"
               >
-                My decision
+                Summary of decision
               </a>
             </h5>
           </div>
@@ -94,21 +102,21 @@
                 class="d-flex p-2 justify-content-between link-dark item-header"
               >
                 Criteria importance
-                <i class="bi bi-plus"></i>
               </a>
             </h5>
           </div>
           <div class="ms-5 me-5">
-          <bar-chart
-            class="mb-5 mt-4"
-            :data="chart_criteria_importance"
-            :colors="colors"
-            height="230px"
-            :round="4"
-            :max="1"
-          >
-          </bar-chart>
-        </div></div>
+            <bar-chart
+              class="mb-5 mt-4"
+              :data="chart_criteria_importance"
+              :colors="colors"
+              height="230px"
+              :round="4"
+              :max="1"
+            >
+            </bar-chart>
+          </div>
+        </div>
         <div class="m-5">
           <div class="mt-3 border-dark border-bottom border-2">
             <h5 class="mb-0">
@@ -116,7 +124,6 @@
                 class="d-flex p-2 justify-content-between link-dark item-header"
               >
                 Alternatives rankings with structure
-                <i class="bi bi-plus"></i>
               </a>
             </h5>
           </div>
