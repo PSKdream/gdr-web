@@ -45,7 +45,7 @@
         type="button"
         class="btn btn-success"
         v-on:click="setCriteria('save')"
-        v-if="status===null"
+        v-if="status === null"
       >
         Next Steps
       </button>
@@ -71,16 +71,17 @@ export default {
       if (num == 1 && this.criteria_count < this.criteria.size) {
         this.criteria_count += 1;
         this.criteria_choose.push("Choose...");
-      } else if (num == -1 && this.criteria_count > 1) {
+      } else if (num == -1 && this.criteria_count > 2) {
         this.criteria_count -= 1;
         this.criteria_choose.pop();
       }
-      if(this.status != null)
-        this.setCriteria('edit')
+      if (this.status != null) this.setCriteria("edit");
     },
     setCriteria(state) {
       if (state === "save") this.status = 1;
       else if (state === "edit" && this.status != 1) return;
+      
+
       this.$store.commit("SetCriteria", this.criteria_choose);
       this.$emit("Changed", state);
     },
@@ -94,7 +95,8 @@ export default {
       });
     });
     if (this.criteria.size > 0) {
-      this.criteria_count = 1;
+      this.criteria_count = 2;
+      this.criteria_choose.push("Choose...");
       this.criteria_choose.push("Choose...");
     } else {
       this.criteria_count = 0;

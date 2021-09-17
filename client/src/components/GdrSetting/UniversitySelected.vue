@@ -67,12 +67,19 @@ export default {
       if (num == 1 && this.university_count < this.university.length) {
         this.university_count += 1;
         this.university_choose.push("Choose...");
-      } else if (num == -1 && this.university_count > 1) {
+      } else if (num == -1 && this.university_count > 2) {
         this.university_count -= 1;
         this.university_choose.pop();
       }
     },
     submit(){
+      if (this.university_choose.indexOf("Choose...") != -1 ) {
+        if(this.university.length === 0)
+          alert("Please choose criteria.");
+        else
+          alert("Please choose university.");
+        return;
+      }
       this.$store.commit('SetUniversity',this.university_choose)
       // console.log('-------------')
       // console.log(this.$store.getters.getCriteria)
@@ -81,7 +88,8 @@ export default {
     }
   },
   beforeMount() {
-    this.university_count = 1;
+    this.university_count = 2;
+    this.university_choose.push("Choose...");
     this.university_choose.push("Choose...");
     this.criteria_choose = this.$store.getters.getCriteria;
     this.courseDetail = this.$store.getters.getCourseDetail;

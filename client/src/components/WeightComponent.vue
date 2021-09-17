@@ -1,10 +1,10 @@
 <template>
-  <div class="row justify-content-center mt-5">
+  <div class="row justify-content-center mt-5 mb-5">
     <!-- Progress Bar -->
-    <div class="position-relative m-4 mb-5 col-md-6">
-      <div class="progress" style="height: 1px">
+    <div class="m-4 col-md-6 col-10">
+      <div class="progress ms-2 me-2 " style="height: 1px">
         <div
-          class="progress-bar"
+          class="progress-bar "
           role="progressbar"
           v-bind:style="{ width: progress + '%' }"
           aria-valuenow="50"
@@ -12,47 +12,55 @@
           aria-valuemax="100"
         ></div>
       </div>
-      <button
-        type="button"
-        class="
-          position-absolute
-          top-0
-          start-0
-          translate-middle
-          btn btn-sm btn-primary
-          rounded-pill
-        "
-        style="width: 2rem; height: 2rem"
-        @click="onClickChangeProgress(1)"
-      >
-        1
-      </button>
-      <button
-        type="button"
-        :class="
-          'position-absolute top-0 start-50 translate-middle btn btn-sm rounded-pill ' +
-          [progress < 50 ? 'btn-secondary' : 'btn-primary']
-        "
-        style="width: 2rem; height: 2rem"
-        :disabled="progress < 50"
-        @click="onClickChangeProgress(2)"
-      >
-        2
-      </button>
-      <button
-        type="button"
-        :class="
-          'position-absolute top-0 start-100 translate-middle btn btn-sm rounded-pill ' +
-          [progress < 100 ? 'btn-secondary' : 'btn-success']
-        "
-        style="width: 2rem; height: 2rem"
-        :disabled="progress < 50"
-      >
-        3
-      </button>
+      <div class="ms-1 me-1 row">
+        <div class="col-4 ps-0">
+          <button
+            type="button"
+            class="
+              translate-middle
+              btn btn-sm btn-primary
+              rounded-pill
+            "
+            style="width: 2rem; height: 2rem"
+            @click="onClickChangeProgress(1)"
+          >
+            1
+          </button>
+        </div>
+        <div class="col-4 text-center">
+          <button
+            type="button"
+            :class="
+              ' translate-middle btn btn-sm rounded-pill ' +
+              [progress < 50 ? 'btn-secondary' : 'btn-primary']
+            "
+            style="width: 2rem; height: 2rem"
+            :disabled="progress < 50"
+            @click="onClickChangeProgress(2)"
+          >
+            2
+          </button>
+        </div>
+        <div class="col-4 pe-0 text-end ">
+          <button
+            type="button"
+            :class="
+              'translate-middle btn btn-sm rounded-pill ' +
+              [progress < 100 ? 'btn-secondary' : 'btn-success']
+            "
+            style="width: 2rem; height: 2rem"
+            :disabled="progress < 50"
+          >
+            3
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="col-md-10 card pb-3 mt-5 mb-5">
+    <div
+      class="col-md-10 card pb-3 mt-5 mb-5"
+      v-if="criteria_eigenvector === null || university_eigenvector === null"
+    >
       <CriteriaWeight
         @onSubmit="CriteriaWeightReturn"
         v-if="criteria_eigenvector === null"
@@ -61,19 +69,22 @@
         @onSubmit="UniversityWeightReturn"
         v-if="criteria_eigenvector !== null && university_eigenvector == null"
       ></Universityweight>
-      <div
-        class="summary mt-4 mb-2"
-        v-if="criteria_eigenvector !== null && university_eigenvector != null"
-      >
-        <div class="mt-3">
-          <div class="d-flex justify-content-center">
-            <h2 class="fst-italic">
+    </div>
+
+    <div
+      class="mt-4 mb-2 container row col-md-10"
+      v-if="criteria_eigenvector !== null && university_eigenvector != null"
+    >
+      <div class="col-md-3 col-12">
+        <div class="card p-3" style="background-color: #fffbe5">
+          <div class="d-flex justify-content-center mt-2">
+            <h3 class="fst-italic">
               <i class="bi bi-bar-chart-line pe-1"></i> Ranking
-            </h2>
+            </h3>
           </div>
-          <div class="d-flex justify-content-center mt-1">
+          <div class="d-flex justify-content-center mb-2">
             <h4>
-              <ol>
+              <ol class="mb-0">
                 <li v-for="item in chart_decision" :key="item">
                   {{ item[0] }}
                 </li>
@@ -81,7 +92,9 @@
             </h4>
           </div>
         </div>
-        <div class="ms-5 me-5 mt-4">
+      </div>
+      <div class="col-md-9 col-12 card">
+        <div class="ms-5 me-5">
           <div class="mt-3 border-dark border-bottom border-2">
             <h5 class="mb-0">
               <a
@@ -91,9 +104,9 @@
               </a>
             </h5>
           </div>
-          <div class="ms-5 me-5">
+          <div>
             <bar-chart
-              class="mt-4"
+              class="mt-4 "
               :data="chart_decision"
               height="230px"
               :colors="colors_rank"
@@ -113,7 +126,7 @@
               </a>
             </h5>
           </div>
-          <div class="ms-5 me-5">
+          <div>
             <bar-chart
               class="mb-5 mt-4"
               :data="chart_criteria_importance"
@@ -136,7 +149,7 @@
             </h5>
           </div>
           <div
-            class="mt-3 ms-5 me-5"
+            class="mt-3"
             v-for="(uni, index) in university_choose"
             :key="index"
           >
@@ -298,5 +311,8 @@ export default {
 }
 .item-header:hover {
   cursor: pointer;
+}
+.translate-middle {
+    transform: translate(1%,-50%)!important;
 }
 </style>

@@ -63,6 +63,7 @@ apiRoute.route("/get-detail/:course").get((req, res, next) => {
 
 //insert course
 apiRoute.route("/insert-course/").post((req, res, next) =>{
+  //console.log(req.body.text)
   courseModel.create(req.body.text,(error, data) => {
     if (error) {
       return next(error);

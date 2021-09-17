@@ -2,35 +2,41 @@
   <div>
     <!-- Nav bar bg-opacity-75-->
     <nav
-      class="
-        navbar navbar-dark
-        bg-dark 
-        justify-content-between
-        flex-nowrap flex-row
-      "
+      class="navbar navbar-dark bg-dark navbar-expand-lg navbar-light bg-light"
     >
       <div class="container">
-        <router-link to="/" class="navbar-brand float-left"
-          >Graduate Degree Recommender System</router-link
+        <a class="navbar-brand" href="/">GDR System</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-        <ul class="nav navbar-nav flex-row float-right">
-          <li class="nav-item">
-            <router-link to="/model" class="nav-link pe-3 text-white"
-              >Model</router-link
-            >
-          </li>
-
-          <li class="nav-item">
-            <router-link to="/course" class="nav-link text-white">Course(Admin)</router-link>
-          </li>
-        </ul>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav ms-3 me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/model">Model</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/course">Course(Admin)</a>
+            </li>
+          </ul>
+          
+        </div>
       </div>
     </nav>
-
     <!-- Router view -->
     <div class="container">
       <router-view></router-view>
     </div>
+  
   </div>
 </template>
-

@@ -11,6 +11,9 @@ let courseSchema = new Schema({
     },
     criteria: {
         type: Array
+    },
+    detail: {
+        type: Object
     }
 }, {
     collection: 'course'

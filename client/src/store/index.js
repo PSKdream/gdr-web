@@ -86,7 +86,6 @@ export default createStore({
     getUniversityList(state){
       return state.university_list;
     },
-    
   },
   modules: {},
 });

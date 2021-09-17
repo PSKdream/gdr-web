@@ -52,15 +52,24 @@
             v-for="(name, index) in criteriaList"
             :key="index"
           >
-            <input
-              class="form-check-input ms-2 me-2"
-              type="checkbox"
-              v-bind:id="name"
-              v-model="criteriaChoose[index]"
-            />
-            <label class="form-check-label ms-2" for="flexCheckDefault">
-              {{ name }}
-            </label>
+            <div>
+              <input
+                class="form-check-input ms-2 me-2"
+                type="checkbox"
+                v-bind:id="name"
+                v-model="criteriaChoose[index]"
+              />
+              <label class="form-check-label ms-2" for="flexCheckDefault">
+                {{ name }}
+              </label>
+            </div>
+            <div
+              class="input-group mt-2 mb-3 pe-4"
+              style="padding-left: 2.6rem"
+              v-if="criteriaChoose[index] == true"
+            >
+              <textarea class="form-control" v-model="criteriaDetail[name]" placeholder="detail"></textarea>
+            </div>
           </div>
         </div>
         <div class="text-center card-body">
@@ -80,6 +89,7 @@ export default {
       course: "",
       university: "",
       criteriaChoose: null,
+      criteriaDetail:{},
 
       courseList: [],
       universityList: [],
@@ -95,12 +105,14 @@ export default {
       }
       if (this.course != "" && this.university != "" && criteria.length != 0) {
         try {
+          //console.log(this.criteriaDetail)
           PostService.insertCourse({
             course: this.course,
             university: this.university,
             criteria: criteria,
+            detail : this.criteriaDetail
           });
-          this.$router.push("/course")
+          this.$router.push("/course");
         } catch (err) {
           alert(err);
         }
