@@ -72,28 +72,33 @@
     </div>
 
     <div
-      class="mt-4 mb-2 container row col-md-10"
+      class="mt-4 mb-2 container  col-md-10"
       v-if="criteria_eigenvector !== null && university_eigenvector != null"
     >
-      <div class="col-md-3 col-12">
+    <div class="d-flex justify-content-center  mb-4">
+      <h3>Course : {{course[0]}}</h3>
+    </div>
+    <div class="row">
+         
+      <div class="col-md-4 col-12">
         <div class="card p-3" style="background-color: #fffbe5">
           <div class="d-flex justify-content-center mt-2">
-            <h3 class="fst-italic">
+            <h4 class="fst-italic">
               <i class="bi bi-bar-chart-line pe-1"></i> Ranking
-            </h3>
+            </h4>
           </div>
           <div class="d-flex justify-content-center mb-2">
-            <h4>
+            <h5>
               <ol class="mb-0">
                 <li v-for="item in chart_decision" :key="item">
                   {{ item[0] }}
                 </li>
               </ol>
-            </h4>
+            </h5>
           </div>
         </div>
       </div>
-      <div class="col-md-9 col-12 card">
+      <div class="col-md-8 col-12 card">
         <div class="ms-5 me-5">
           <div class="mt-3 border-dark border-bottom border-2">
             <h5 class="mb-0">
@@ -165,7 +170,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div></div>
     <!-- 
     <p>{{ criteria_choose }}</p>
     <p>{{ university_choose }}</p>
@@ -184,7 +189,7 @@ export default {
   data() {
     return {
       progress: 0,
-
+      course:this.$store.getters.getCourse,
       criteria_eigenvector: null,
       university_eigenvector: null,
 
@@ -192,18 +197,12 @@ export default {
       chart_decision: [],
       chart_criteria_importance: [],
       chart_alternatives: [],
-      colors_rank: ["#fee1e8"],
+      colors_rank: ["#66D2D6"],
       colors: [
-        "#fee1e8",
-        "#c6dbda",
-        "#fed7c3",
-        "#f6eac2",
-        "#ecd5e3",
-        "#8fcaca",
-        "#ff968a",
-        "#cbaacb",
-        "#abdee6",
-        "#fffb5",
+        "#E9679B",
+        "#F8CD4F",
+        "#B9A3D1",
+      "#6EE0E0",
       ],
 
       criteria_choose: this.$store.getters.getCriteria, //["c1", "c2", "c5"],
@@ -250,7 +249,7 @@ export default {
 
       //chart_decision
       for (let uni = 0; uni < this.university_choose.length; uni++) {
-        this.colors_rank.push("#abdee6");
+        this.colors_rank.push("#BD97CB");
         this.chart_decision.push([
           this.university_choose[uni],
           this.summary[uni],
