@@ -55,14 +55,14 @@
 
       <div
         class="University-Weight"
-        v-for="(uni1, index1) in university_choose"
+        v-for="(uni1, index1) in alternatives_choose"
         :key="index1"
       >
         <div
           class="position-relative row justify-content-center"
-          v-for="(uni2, index2) in university_choose.slice(
+          v-for="(uni2, index2) in alternatives_choose.slice(
             index1 + 1,
-            university_choose.length
+            alternatives_choose.length
           )"
           :key="index2"
         >
@@ -76,7 +76,7 @@
               :class="
                 'btn btn-sm rounded-pill ms-1  ' +
                 [
-                  university_matrix[index].get(index1, index2 + index1 + 1) ==
+                  alternatives_matrix[index].get(index1, index2 + index1 + 1) ==
                   10 - n
                     ? 'btn-success'
                     : 'btn-primary',
@@ -100,7 +100,7 @@
               :class="
                 'btn btn-sm rounded-pill ms-1  ' +
                 [
-                  university_matrix[index].get(index1, index2 + index1 + 1) == 1
+                  alternatives_matrix[index].get(index1, index2 + index1 + 1) == 1
                     ? 'btn-success'
                     : 'btn-primary',
                 ]
@@ -121,7 +121,7 @@
               :class="
                 'btn btn-sm rounded-pill ms-1  ' +
                 [
-                  university_matrix[index].get(index1, index2 + index1 + 1) ==
+                  alternatives_matrix[index].get(index1, index2 + index1 + 1) ==
                   1 / (n + 1)
                     ? 'btn-success'
                     : 'btn-primary',
@@ -156,9 +156,9 @@
       </h6>
     </div>
     <!-- 
-    <p>{{ university_matrix }}</p>
+    <p>{{ alternatives_matrix }}</p>
     <p>{{ criteria_choose }}</p>
-    <p>{{ university_choose }}</p>
+    <p>{{ alternatives_choose }}</p>
     <p>c {{ text_c }}</p>
     <p>d {{ text_d }}</p>
     -->
@@ -174,9 +174,9 @@ export default {
   data() {
     return {
       criteria_choose: this.$store.getters.getCriteria, //["c1", "c2", "c5"],
-      university_choose: this.$store.getters.getUniversity, //["u1", "u2", "u5"],
-      university_matrix: null,
-      university_eigenvector: null,
+      alternatives_choose: this.$store.getters.getUniversity, //["u1", "u2", "u5"],
+      alternatives_matrix: null,
+      alternatives_eigenvector: null,
       course_detail: null,
       text_c: null,
       text_d: null,
@@ -185,9 +185,9 @@ export default {
 
   methods: {
     change_matrix(arrIndex, indexRow, indexCol, data) {
-      this.university_matrix[arrIndex].set(indexRow, indexCol, data);
-      this.university_matrix[arrIndex].set(indexCol, indexRow, 1 / data);
-      //console.log(this.university_matrix[arrIndex].get(indexRow, indexCol));
+      this.alternatives_matrix[arrIndex].set(indexRow, indexCol, data);
+      this.alternatives_matrix[arrIndex].set(indexCol, indexRow, 1 / data);
+      //console.log(this.alternatives_matrix[arrIndex].get(indexRow, indexCol));
     },
     checkZero(matrix) {
       let size = matrix.shape[0];
@@ -243,15 +243,15 @@ export default {
       let size = this.criteria_choose.length;
       let textConfrimCR = "";
       for (let i = 0; i < size; i++) {
-        if (this.checkZero(this.university_matrix[i]) === true) return;
+        if (this.checkZero(this.alternatives_matrix[i]) === true) return;
 
-        this.university_eigenvector[i] = this.eigenvector(
-          this.university_matrix[i]
+        this.alternatives_eigenvector[i] = this.eigenvector(
+          this.alternatives_matrix[i]
         );
 
         let cr = this.consistencyRatio(
-          this.university_matrix[i],
-          this.university_eigenvector[i]
+          this.alternatives_matrix[i],
+          this.alternatives_eigenvector[i]
         );
 
         if (cr >= 0.1) {
@@ -269,17 +269,21 @@ export default {
         );
         if (confirmCR === false) return;
       }
-      this.$emit("onSubmit", this.university_eigenvector);
+      this.$emit("onSubmit", {
+        matrix : this.alternatives_matrix,
+        eigenvector:this.alternatives_eigenvector
+      });
+      // this.$emit("onSubmit", this.alternatives_eigenvector);
     },
   },
   beforeMount() {
-    this.university_matrix = new Array(this.criteria_choose.length);
-    this.university_eigenvector = new Array(this.criteria_choose.length);
+    this.alternatives_matrix = new Array(this.criteria_choose.length);
+    this.alternatives_eigenvector = new Array(this.criteria_choose.length);
     for (let i = 0; i < this.criteria_choose.length; i++) {
-      this.university_matrix[i] = nj.identity(this.university_choose.length);
-      /*this.university_matrix[i] = nj.ones([
-        this.university_choose.length,
-        this.university_choose.length,
+      this.alternatives_matrix[i] = nj.identity(this.alternatives_choose.length);
+      /*this.alternatives_matrix[i] = nj.ones([
+        this.alternatives_choose.length,
+        this.alternatives_choose.length,
       ]);*/
     }
   },
@@ -287,7 +291,7 @@ export default {
     this.course_detail = await PostService.getDetailCourse(this.$store.getters.getCourse)
     
     var course_detail = this.course_detail
-    var university_choose = this.university_choose
+    var alternatives_choose = this.alternatives_choose
     var exampleModal = document.getElementById("exampleModal");
     exampleModal.addEventListener("show.bs.modal", function (event) {
       // Button that triggered the modal
@@ -305,7 +309,7 @@ export default {
       let textParagraph = ""
       for (let index = 0; index < course_detail.length; index++) {
         const element = course_detail[index];
-        if(university_choose.indexOf(element.university) === -1)
+        if(alternatives_choose.indexOf(element.university) === -1)
           continue
         textParagraph += "<p class='text-center mb-0'><u>University : "+element.university + "</u></p>"
         textParagraph += "<p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +element.detail[recipient] + "</p>"

@@ -193,8 +193,11 @@ export default {
         if(confirmCR === false)
           return;
       }
-
-      this.$emit("onSubmit", this.criteria_eigenvector);
+      this.$emit("onSubmit", {
+        matrix : this.criteria_matrix,
+        eigenvector:this.criteria_eigenvector
+      });
+      //this.$emit("onSubmit", [this.criteria_eigenvector,this.criteria_matrix]);
     },
   },
   beforeMount() {

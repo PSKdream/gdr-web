@@ -12,6 +12,13 @@ class PostService{
             text
         })
     }
+
+    static insertModelLog(text){
+        //console.log(text.email)
+        return axios.post(url+'insert-model-log',{
+            text
+        })
+    }
     
     static deleteCourse(id){
         //console.log(text.email)

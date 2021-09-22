@@ -4,6 +4,7 @@ const apiRoute = express.Router();
 //model
 let courseModel = require("../models/Course.js");
 let criteriaModel = require("../models/Criteria.js");
+let logModel = require("../models/Model_log");
 
 //get all data
 apiRoute.route("/get-course-data").get((req, res, next) => {
@@ -26,7 +27,6 @@ apiRoute.route("/get-criteria").get((req, res, next) => {
     }
   })
 });
-
 
 //get course distinct
 apiRoute.route("/get-course").get((req, res, next) => {
@@ -86,6 +86,20 @@ apiRoute.route("/delete-course/:id").delete((req, res, next) => {
     }
   });
 });
+
+
+//insert model
+apiRoute.route("/insert-model-log/").post((req, res, next) =>{
+  //console.log(req.body.text)
+  logModel.create(req.body.text,(error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  });
+})
+
 /*
 //update student data
 apiRoute.route("/update-student/:id").put((req, res, next) => {
