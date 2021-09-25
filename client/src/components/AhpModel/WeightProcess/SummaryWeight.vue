@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4 mb-2 container col-md-10">
     <div class="d-flex justify-content-center mb-4">
-      <h3>Course : {{ course[0] }}</h3>
+      <h3>Program : {{ course[0] }}</h3>
     </div>
     <div class="row">
       <div class="col-md-4 col-12">
@@ -126,7 +126,7 @@ export default {
   mounted() {
     // console.log("created");
     // console.log(this.alternatives_choose.length);
-    //summary
+    // summary
     this.summary = new Array(this.alternatives_choose.length);
     for (let uni = 0; uni < this.alternatives_choose.length; uni++) {
       for (let cri = 0; cri < this.criteria_eigenvector.length; cri++) {

@@ -75,10 +75,10 @@
 </template>
 
 <script>
-import PostService from '../PostService';
-import CriteriaWeight from "./Weight/CriteriaWeight.vue";
-import AlternativesWeight from "./Weight/AlternativesWeight.vue";
-import SummaryWeight from "./Weight/SummaryWeight.vue";
+import PostService from '../../PostService';
+import CriteriaWeight from "./WeightProcess/CriteriaWeight.vue";
+import AlternativesWeight from "./WeightProcess/AlternativesWeight.vue";
+import SummaryWeight from "./WeightProcess/SummaryWeight.vue";
 export default {
   data() {
     return {

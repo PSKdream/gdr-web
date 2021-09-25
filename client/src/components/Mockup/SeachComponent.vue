@@ -566,7 +566,7 @@
         <div class="card mb-3" style="max-width: 540px">
           <div class="row g-0 ">
             <div class="col-md-4 ps-1 d-flex align-items-center justify-content-center">
-              <img src="../assets/doc.jpg" class="img-fluid rounded-start image-card"/>
+              <img src="../../assets/doc.jpg" class="img-fluid rounded-start image-card"/>
             </div>
             <div class="col-md-8">
               <div class="card-body">

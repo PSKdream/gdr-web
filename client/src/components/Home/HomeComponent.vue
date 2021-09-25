@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import SearchComponent from "./Home/SearchComponent.vue";
-import CardComponent from "./Home/CardComponent.vue";
-import MemberComponent from "./Home/MemberComponent.vue";
+import SearchComponent from "./SearchComponent.vue";
+import CardComponent from "./CardComponent.vue";
+import MemberComponent from "./MemberComponent.vue";
 export default {
   data() {
     return {};

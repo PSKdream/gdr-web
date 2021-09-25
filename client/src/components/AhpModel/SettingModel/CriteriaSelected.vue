@@ -32,8 +32,8 @@
       >
         <option selected>Choose...</option>
         <option
-          v-for="(name, index) in criteria"
-          :key="index"
+          v-for="(name, index_option) in OptionFilters(index - 1)"
+          :key="index_option"
           v-bind:value="name"
         >
           {{ name }}
@@ -59,16 +59,18 @@ export default {
   data() {
     return {
       courseDetail: {},
-      criteria: new Set(),
-      criteria_count: 0,
+      
+      criteria: new Array(),
       criteria_choose: new Array(),
+
+      criteria_count: 0,
       status: null,
     };
   },
   methods: {
     criteriaCount(num) {
       this.courseDetail = this.$store.getters.getCourseDetail;
-      if (num == 1 && this.criteria_count < this.criteria.size) {
+      if (num == 1 && this.criteria_count < this.criteria.length) {
         this.criteria_count += 1;
         this.criteria_choose.push("Choose...");
       } else if (num == -1 && this.criteria_count > 2) {
@@ -80,21 +82,26 @@ export default {
     setCriteria(state) {
       if (state === "save") this.status = 1;
       else if (state === "edit" && this.status != 1) return;
-      
 
       this.$store.commit("SetCriteria", this.criteria_choose);
       this.$emit("Changed", state);
     },
+    OptionFilters(indexSkip) {
+      let arrFilter = [...this.criteria_choose]
+      arrFilter.splice(indexSkip,1);
+      return this.criteria.filter(word => arrFilter.indexOf(word) === -1);
+    },
   },
   beforeMount() {
     this.courseDetail = this.$store.getters.getCourseDetail;
-    this.criteria.clear();
+    let criteria = new Set();
     this.courseDetail.forEach((element) => {
       Object.values(element.criteria).forEach((data) => {
-        this.criteria.add(data);
+        criteria.add(data);
       });
     });
-    if (this.criteria.size > 0) {
+    this.criteria = Array.from(criteria);
+    if (this.criteria.length > 0) {
       this.criteria_count = 2;
       this.criteria_choose.push("Choose...");
       this.criteria_choose.push("Choose...");

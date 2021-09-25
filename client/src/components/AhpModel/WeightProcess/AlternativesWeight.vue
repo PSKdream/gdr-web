@@ -167,7 +167,7 @@
 
 <script>
 import nj from "numjs";
-import PostService from '../../PostService';
+import PostService from '../../../PostService';
 
 export default {
   //props: ["university", "universitySize", "criteria", "criteriaSize"],

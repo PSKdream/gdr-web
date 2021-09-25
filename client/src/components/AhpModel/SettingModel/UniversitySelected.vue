@@ -31,7 +31,7 @@
       >
         <option selected>Choose...</option>
         <option
-          v-for="(name, index) in university"
+          v-for="(name, index) in OptionFilters(index - 1)"
           :key="index"
           v-bind:value="name"
         >
@@ -57,9 +57,10 @@ export default {
   data() {
     return {
       university: new Array(),
-      university_count: 0,
       university_choose: new Array(),
       criteria_choose: null,
+
+      university_count: 0,
     };
   },
   methods: {
@@ -71,6 +72,11 @@ export default {
         this.university_count -= 1;
         this.university_choose.pop();
       }
+    },
+    OptionFilters(indexSkip) {
+      let arrFilter = [...this.university_choose]
+      arrFilter.splice(indexSkip,1);
+      return this.university.filter(word => arrFilter.indexOf(word) === -1);
     },
     submit(){
       if (this.university_choose.indexOf("Choose...") != -1 ) {

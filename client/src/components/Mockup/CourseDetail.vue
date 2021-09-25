@@ -10,7 +10,7 @@
             <img
               alt="PhD student"
               class="one-third right"
-              src="../assets/doc.jpg"
+              src="../../assets/doc.jpg"
               style="
                 width: 250px;
                 margin: 5px 0 16px 16px;
@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       data: [
-        { topic: "Universitty's name / Popularity", detail: "detail" },
+        { topic: "Popularity", detail: "detail" },
         { topic: "Scholarship opportunities", detail: "detail" },
         { topic: "State/Private university", detail: "detail" },
         { topic: "Education language", detail: "detail" },

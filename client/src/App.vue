@@ -25,8 +25,8 @@
             <li class="nav-item">
               <a class="nav-link " href="/model">Model</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link " href="/course">Course(Admin)</a>
+            <li class="nav-item" v-if="false">
+              <a class="nav-link " href="/course" >Program (Admin)</a>
             </li>
           </ul>
           

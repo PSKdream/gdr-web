@@ -9,7 +9,7 @@
             class="btn btn-sm btn-info"
             @click="this.$router.push('/insert-course')"
           >
-            insert data
+            Insert Program
           </button>
         </div>
       </div>
@@ -18,7 +18,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Course</th>
+            <th scope="col">Program</th>
             <th scope="col">University</th>
             <th scope="col">Criteria</th>
             <td scope="col" v-if="level === 'admin'">Action</td>
@@ -81,7 +81,7 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     try {
       this.course = await PostService.getCourseData();
       //console.log(this.course);

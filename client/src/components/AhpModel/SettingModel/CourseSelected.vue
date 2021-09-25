@@ -1,7 +1,7 @@
 <template>
   <div class="input-group">
     <div class="input-group-prepend">
-      <label class="input-group-text" for="inputCourseSelect">Course</label>
+      <label class="input-group-text" for="inputCourseSelect">Program</label>
     </div>
     <select
       class="form-select"

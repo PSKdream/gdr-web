@@ -23,9 +23,9 @@
 
 <script>
 //import PostService from "../PostService.js";
-import CourseComponent from "./GdrSetting/CourseSelected.vue";
-import CriteriaComponent from "./GdrSetting/CriteriaSelected.vue";
-import UniversityComponent from "./GdrSetting/UniversitySelected.vue";
+import CourseComponent from "./SettingModel/CourseSelected.vue";
+import CriteriaComponent from "./SettingModel/CriteriaSelected.vue";
+import UniversityComponent from "./SettingModel/UniversitySelected.vue";
 export default {
   data() {
     return {

@@ -1,11 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
-import GdrSettingComponent from "@/components/GdrSettingComponent.vue";
-import WeightComponent from "@/components/WeightComponent.vue";
-import InsertCourseComponent from "@/components/InsertCourseComponent.vue";
-import HomeComponent from "@/components/HomeComponent.vue"
-import CourseComponent from "@/components/Course/CourseComponent.vue";
-import SearchComponent from '@/components/SeachComponent.vue'
-import CourseDetail from '@/components/CourseDetail.vue'
+import GdrSettingComponent from "@/components/AhpModel/ModelComponent.vue";
+import WeightComponent from "@/components/AhpModel/WeightComponent.vue";
+import HomeComponent from "@/components/Home/HomeComponent.vue"
+
+import SearchComponent from '@/components/Mockup/SeachComponent.vue'
+import CourseDetail from '@/components/Mockup/CourseDetail.vue'
+
+import InsertCourseComponent from "@/components/Admin/InsertCourseComponent.vue";
+import CourseComponent from "@/components/Admin/CourseComponent.vue";
 
 const routes = [
   {
@@ -33,6 +35,12 @@ const routes = [
   {
     path: "/course",
     name: "course",
+    component: CourseComponent,
+    //props: true
+  },
+  {
+    path: "/admin",
+    name: "admin",
     component: CourseComponent,
     //props: true
   },

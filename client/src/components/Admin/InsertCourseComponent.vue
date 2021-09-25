@@ -3,12 +3,12 @@
     <div class="col-md-7 card mb-5 ps-0 pe-0">
       <!-- Content goes here -->
       <div class="card-header">
-        <h2 class="text-center pt-2 pb-2">Insert Course</h2>
+        <h2 class="text-center pt-2 pb-2">Insert Program</h2>
       </div>
 
       <form class="mt-5 m-2 card-body" @submit.prevent="onSubmit">
         <div for="course" class="card-body">
-          <label for="courseNameList" class="form-label">Course</label>
+          <label for="courseNameList" class="form-label">Program</label>
           <input
             class="form-control"
             list="courselistOptions"
@@ -82,7 +82,7 @@
 
 
 <script>
-import PostService from "../PostService.js";
+import PostService from "../../PostService.js";
 export default {
   data() {
     return {
