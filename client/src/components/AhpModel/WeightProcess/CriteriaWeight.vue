@@ -111,9 +111,10 @@
 import nj from "numjs";
 // import ndarray from 'ndarray'
 export default {
-  //props: ["criteria", "criteriaSize"],
+  props: ["CrSelected"],
   data() {
     return {
+      cr_change : null,
       criteria_choose: null,
       criteria_matrix: null,
       criteria_eigenvector: null,
@@ -188,14 +189,15 @@ export default {
         this.criteria_eigenvector
       );
 
-      if (cr >= 0.1) {
+      if (cr >= 0.1 && this.CrSelected === true) {
         let confirmCR = confirm("Consistency Ratio is unacceptable.\n" + "C.R. : " + cr)
-        if(confirmCR === false)
-          return;
+        if(confirmCR === false) return;
+        this.cr_change = false
       }
       this.$emit("onSubmit", {
         matrix : this.criteria_matrix,
-        eigenvector:this.criteria_eigenvector
+        eigenvector: this.criteria_eigenvector,
+        cr_change: this.cr_change
       });
       //this.$emit("onSubmit", [this.criteria_eigenvector,this.criteria_matrix]);
     },

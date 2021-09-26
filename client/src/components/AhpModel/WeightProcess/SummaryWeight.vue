@@ -1,5 +1,40 @@
 <template>
   <div class="mt-4 mb-2 container col-md-10">
+    <!-- model pop up-->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center" id="exampleModalLabel">
+              New message
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body ms-2 me-2"></div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="d-flex justify-content-center mb-4">
       <h3>Program : {{ course[0] }}</h3>
     </div>
@@ -16,6 +51,13 @@
               <ol class="mb-0">
                 <li v-for="item in chart_decision" :key="item">
                   {{ item[0] }}
+                  <a
+                    class="bi bi-file-earmark-text"
+                    href="#topic"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"
+                    :data-bs-whatever="item[0]"
+                  ></a>
                 </li>
               </ol>
             </h5>
@@ -79,10 +121,10 @@
           </div>
           <div
             class="mt-3"
-            v-for="(uni, index) in alternatives_choose"
+            v-for="(item, index) in chart_decision"
             :key="index"
           >
-            <h6 class="text-center pt-2">{{ uni }}</h6>
+            <h6 class="text-center pt-2">{{ item[0] }}</h6>
             <bar-chart
               :data="chart_alternatives[index]"
               :colors="colors"
@@ -95,6 +137,31 @@
         </div>
       </div>
     </div>
+    <!--
+    alternatives_eigenvector
+    {{alternatives_eigenvector}}
+    <br><br>
+    criteria_eigenvector
+    {{criteria_eigenvector}}
+    <br><br>
+    criteria_choose
+    {{ criteria_choose }}
+    <br><br>
+    alternatives_choose
+    {{ alternatives_choose }}
+    <br><br>
+    chart_decision
+    {{ chart_decision }}
+    <br><br>
+    chart_criteria_importance
+    {{ chart_criteria_importance }}
+    <br><br>
+    chart_alternatives
+    {{ chart_alternatives }}
+    <br><br>
+    chart_alternatives_obj
+    {{ chart_alternatives_obj }}
+     -->
   </div>
 </template>
 
@@ -109,6 +176,7 @@ export default {
       chart_decision: [],
       chart_criteria_importance: [],
       chart_alternatives: [],
+      chart_alternatives_obj: {},
       colors_rank: ["#66D2D6"],
       colors: ["#E9679B", "#F8CD4F", "#B9A3D1", "#6EE0E0"],
 
@@ -122,10 +190,19 @@ export default {
         return a[1] > b[1] ? -1 : a[1] === b[1] ? 0 : 1;
       });
     },
+    Arr3dObjectSort(object) {
+      object.sort(function (a, b) {
+        let sumA = 0,
+          sumB = 0;
+        for (let index = 0; index < a.length; index++) {
+          sumA += a[index][1];
+          sumB += b[index][1];
+        }
+        return sumA > sumB ? -1 : sumA === sumB ? 0 : 1;
+      });
+    },
   },
-  mounted() {
-    // console.log("created");
-    // console.log(this.alternatives_choose.length);
+  async mounted() {
     // summary
     this.summary = new Array(this.alternatives_choose.length);
     for (let uni = 0; uni < this.alternatives_choose.length; uni++) {
@@ -143,8 +220,6 @@ export default {
     this.chart_decision = [];
     this.chart_criteria_importance = [];
     this.chart_alternatives = [];
-
-    //color
 
     //chart_decision
     for (let uni = 0; uni < this.alternatives_choose.length; uni++) {
@@ -172,19 +247,74 @@ export default {
         arr.push([
           this.criteria_choose[cri],
           this.alternatives_eigenvector[cri][uni] *
-            this.criteria_eigenvector[uni],
+            this.criteria_eigenvector[cri],
         ]);
       }
       this.chart_alternatives.push(arr);
     }
+    this.Arr3dObjectSort(this.chart_alternatives);
     //console.log(this.alternatives_eigenvector);
     //console.log(this.chart_alternatives);
+
+    //model
+    //await this.$store.dispatch("postCourseDetail", this.course);
+    var course_detail = this.$store.getters.getCourseDetail;
+    var exampleModal = document.getElementById("exampleModal");
+    exampleModal.addEventListener("show.bs.modal", function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget;
+      // Extract info from data-bs-* attributes
+      var recipient = button.getAttribute("data-bs-whatever");
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+      //
+      // Update the modal's content.
+      var modalTitle = exampleModal.querySelector(".modal-title");
+      var modalBodyParagraph = exampleModal.querySelector(".modal-body");
+
+      modalTitle.textContent = recipient;
+
+      let textParagraph = "";
+      for (let index = 0; index < course_detail.length; index++) {
+        const element = course_detail[index];
+        if (element.university === recipient) {
+          //textParagraph = Object.getOwnPropertyNames(element.detail)
+          //textParagraph = element.detail[0];
+          for (const property in element.detail) {
+            // console.log(`${property}: ${object[property]}`);
+            //textParagraph += `${property}: ${element.detail[property]}`;
+            if (
+              element.detail[property] != "None" &&
+              element.detail[property] !== ""
+            ) {
+              textParagraph += `<p class='mb-0'><u>${property}` + "</u></p>";
+              textParagraph +=
+                `<p class=''>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${element.detail[property]}` +
+                "</p>";
+            }
+          }
+        }
+      }
+      /*for (let index = 0; index < course_detail.length; index++) {
+        const element = course_detail[index];
+        if (alternatives_choose.indexOf(element.university) === -1) continue;
+        textParagraph +=
+          "<p class='text-center mb-0'><u>University : " +
+          element.university +
+          "</u></p>";
+        textParagraph +=
+          "<p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+          element.detail[recipient] +
+          "</p>";
+      }*/
+      //console.log(textParagraph);
+      modalBodyParagraph.innerHTML = textParagraph;
+    });
   },
 };
 </script>
 
 <style scoped>
-
 .item-header {
   color: #161515;
   text-decoration: none;
@@ -192,5 +322,4 @@ export default {
 .item-header:hover {
   cursor: pointer;
 }
-
 </style>

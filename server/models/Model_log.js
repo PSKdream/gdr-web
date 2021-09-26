@@ -1,25 +1,30 @@
-  
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let modelSchema = new Schema({
+let modelSchema = new Schema(
+  {
     course: {
-        type: String
+      type: String,
     },
     alternatives: {
-        type: Array
+      type: Array,
     },
     criteria: {
-        type: Array
+      type: Array,
     },
     criteria_matrix: {
-        type: Object
+      type: Object,
     },
     alternatives_matrix: {
-        type: Object
-    }
-}, {
-    collection: 'model_log'
-})
+      type: Object,
+    },
+    cr_selected: {
+      type: Boolean,
+    },
+  },
+  {
+    collection: "model_log",
+  }
+);
 
-module.exports = mongoose.model('model_log', modelSchema);
+module.exports = mongoose.model("model_log", modelSchema);

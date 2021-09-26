@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h2 id="topic" class="text-center mt-4">University Preferences</h2>
-
+    <!-- model pop up-->
     <div
       class="modal fade"
       id="exampleModal"
@@ -20,8 +20,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body ms-2 me-2">
-          </div>
+          <div class="modal-body ms-2 me-2"></div>
           <div class="modal-footer">
             <button
               type="button"
@@ -100,7 +99,8 @@
               :class="
                 'btn btn-sm rounded-pill ms-1  ' +
                 [
-                  alternatives_matrix[index].get(index1, index2 + index1 + 1) == 1
+                  alternatives_matrix[index].get(index1, index2 + index1 + 1) ==
+                  1
                     ? 'btn-success'
                     : 'btn-primary',
                 ]
@@ -167,12 +167,15 @@
 
 <script>
 import nj from "numjs";
-import PostService from '../../../PostService';
+import PostService from "../../../PostService";
 
 export default {
   //props: ["university", "universitySize", "criteria", "criteriaSize"],
+  props: ["CrSelected"],
   data() {
     return {
+      cr_change: null,
+
       criteria_choose: this.$store.getters.getCriteria, //["c1", "c2", "c5"],
       alternatives_choose: this.$store.getters.getUniversity, //["u1", "u2", "u5"],
       alternatives_matrix: null,
@@ -263,15 +266,18 @@ export default {
             "\n";
         }
       }
-      if (textConfrimCR != "") {
+      if (textConfrimCR != "" && this.CrSelected === true) {
         let confirmCR = confirm(
           "Consistency Ratio is unacceptable.\n" + textConfrimCR
         );
         if (confirmCR === false) return;
+        this.cr_change = false;
+        //this.CrSelected = false
       }
       this.$emit("onSubmit", {
-        matrix : this.alternatives_matrix,
-        eigenvector:this.alternatives_eigenvector
+        matrix: this.alternatives_matrix,
+        eigenvector: this.alternatives_eigenvector,
+        cr_change: this.cr_change,
       });
       // this.$emit("onSubmit", this.alternatives_eigenvector);
     },
@@ -280,7 +286,9 @@ export default {
     this.alternatives_matrix = new Array(this.criteria_choose.length);
     this.alternatives_eigenvector = new Array(this.criteria_choose.length);
     for (let i = 0; i < this.criteria_choose.length; i++) {
-      this.alternatives_matrix[i] = nj.identity(this.alternatives_choose.length);
+      this.alternatives_matrix[i] = nj.identity(
+        this.alternatives_choose.length
+      );
       /*this.alternatives_matrix[i] = nj.ones([
         this.alternatives_choose.length,
         this.alternatives_choose.length,
@@ -288,10 +296,12 @@ export default {
     }
   },
   async mounted() {
-    this.course_detail = await PostService.getDetailCourse(this.$store.getters.getCourse)
-    
-    var course_detail = this.course_detail
-    var alternatives_choose = this.alternatives_choose
+    this.course_detail = await PostService.getDetailCourse(
+      this.$store.getters.getCourse
+    );
+
+    var course_detail = this.course_detail;
+    var alternatives_choose = this.alternatives_choose;
     var exampleModal = document.getElementById("exampleModal");
     exampleModal.addEventListener("show.bs.modal", function (event) {
       // Button that triggered the modal
@@ -306,15 +316,20 @@ export default {
       var modalBodyParagraph = exampleModal.querySelector(".modal-body");
 
       modalTitle.textContent = recipient;
-      let textParagraph = ""
+      let textParagraph = "";
       for (let index = 0; index < course_detail.length; index++) {
         const element = course_detail[index];
-        if(alternatives_choose.indexOf(element.university) === -1)
-          continue
-        textParagraph += "<p class='text-center mb-0'><u>University : "+element.university + "</u></p>"
-        textParagraph += "<p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +element.detail[recipient] + "</p>"
+        if (alternatives_choose.indexOf(element.university) === -1) continue;
+        textParagraph +=
+          "<p class='text-center mb-0'><u>University : " +
+          element.university +
+          "</u></p>";
+        textParagraph +=
+          "<p >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
+          element.detail[recipient] +
+          "</p>";
       }
-      console.log(textParagraph)
+      console.log(textParagraph);
       modalBodyParagraph.innerHTML = textParagraph;
     });
   },
