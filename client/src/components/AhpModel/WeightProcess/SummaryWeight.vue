@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 mb-2 container col-md-10">
+  <div class="mt-4 mb-2 container col-md-11">
     <!-- model pop up-->
     <div
       class="modal fade"
@@ -51,13 +51,12 @@
               <ol class="mb-0">
                 <li v-for="item in chart_decision" :key="item">
                   {{ item[0] }}
-                  <a
-                    class="bi bi-file-earmark-text"
+                  <a style="font-size : 60%"
                     href="#topic"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                     :data-bs-whatever="item[0]"
-                  ></a>
+                  >Read more</a>
                 </li>
               </ol>
             </h5>
@@ -135,8 +134,12 @@
             </bar-chart>
           </div>
         </div>
+      <div class="d-flex justify-content-center  mb-4">
+        <button type="button" class="btn btn-success"  @click="onClickNext">Next</button>
+    </div>
       </div>
     </div>
+    
     <!--
     alternatives_eigenvector
     {{alternatives_eigenvector}}
@@ -185,6 +188,9 @@ export default {
     };
   },
   methods: {
+    onClickNext() {
+          this.$emit("onSubmit");
+      },
     ObjectSort(object) {
       object.sort(function (a, b) {
         return a[1] > b[1] ? -1 : a[1] === b[1] ? 0 : 1;

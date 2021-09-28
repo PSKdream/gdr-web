@@ -39,12 +39,14 @@
         </option>
       </select>
     </div>
-    <div class="text-center mt-3">
-      <button
-        type="button"
-        class="btn btn-success"
-        v-on:click="submit()"
-      >
+    <div>
+      <p class="fw-light fst-italic">
+      Please choose the University. You can add more universities. Click on the
+      Next steps.
+    </p>
+    </div>
+    <div class="text-center mt-3 mb-5">
+      <button type="button" class="btn btn-success" v-on:click="submit()">
         Next Steps
       </button>
     </div>
@@ -74,24 +76,22 @@ export default {
       }
     },
     OptionFilters(indexSkip) {
-      let arrFilter = [...this.university_choose]
-      arrFilter.splice(indexSkip,1);
-      return this.university.filter(word => arrFilter.indexOf(word) === -1);
+      let arrFilter = [...this.university_choose];
+      arrFilter.splice(indexSkip, 1);
+      return this.university.filter((word) => arrFilter.indexOf(word) === -1);
     },
-    submit(){
-      if (this.university_choose.indexOf("Choose...") != -1 ) {
-        if(this.university.length === 0)
-          alert("Please choose criteria.");
-        else
-          alert("Please choose university.");
+    submit() {
+      if (this.university_choose.indexOf("Choose...") != -1) {
+        if (this.university.length === 0) alert("Please choose criteria.");
+        else alert("Please choose university.");
         return;
       }
-      this.$store.commit('SetUniversity',this.university_choose)
+      this.$store.commit("SetUniversity", this.university_choose);
       // console.log('-------------')
       // console.log(this.$store.getters.getCriteria)
       // console.log(this.$store.getters.getUniversity)
-      this.$router.push("/weight")
-    }
+      this.$router.push("/weight");
+    },
   },
   beforeMount() {
     this.university_count = 2;

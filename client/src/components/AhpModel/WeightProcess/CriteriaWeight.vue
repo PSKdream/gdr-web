@@ -1,6 +1,12 @@
 <template>
   <div class="container">
     <h2 id="topic" class="text-center mt-4">Criteria Preferences</h2>
+    <p class="fw-light fst-italic mb-0">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use the scale from 1 to 9 to define the importance of criteria. (1 = Equal
+      importance, 3 = Moderate importance, 5 = Strong importance, 7 = Very
+      strong or demonstrated importance, 9 = Extreme importance and 2,4,6,8 =
+      Intermediate values) After pairwise comparison, click on the Next step.
+    </p>
     <div
       class="Criteria-Preferences"
       v-for="(cri1, index1) in criteria_choose"
@@ -15,7 +21,7 @@
         :key="index2"
       >
         <!--p>{{ index1 }} {{ index2 + index1 + 1 }}</!--p-->
-        <div class="row mt-5">
+        <div class="row mt-4">
           <h6 class="col text-start ms-5">{{ cri1 }}</h6>
           <h6 class="col text-end me-5">{{ cri2 }}</h6>
         </div>
@@ -114,7 +120,7 @@ export default {
   props: ["CrSelected"],
   data() {
     return {
-      cr_change : null,
+      cr_change: null,
       criteria_choose: null,
       criteria_matrix: null,
       criteria_eigenvector: null,
@@ -190,14 +196,17 @@ export default {
       );
 
       if (cr >= 0.1 && this.CrSelected === true) {
-        let confirmCR = confirm("Consistency Ratio is unacceptable.\n" + "C.R. : " + cr)
-        if(confirmCR === false) return;
-        this.cr_change = false
+        let confirmCR = confirm(
+          "Consistency Ratio is unacceptable.\n" + "C.R. : " + cr
+          +"\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
+        );
+        if (confirmCR === false) return;
+        this.cr_change = false;
       }
       this.$emit("onSubmit", {
-        matrix : this.criteria_matrix,
+        matrix: this.criteria_matrix,
         eigenvector: this.criteria_eigenvector,
-        cr_change: this.cr_change
+        cr_change: this.cr_change,
       });
       //this.$emit("onSubmit", [this.criteria_eigenvector,this.criteria_matrix]);
     },

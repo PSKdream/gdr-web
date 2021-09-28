@@ -1,18 +1,41 @@
 <template>
-  <div class="input-group">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputCourseSelect">Program</label>
+  <div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputCourseSelect">Program</label>
+      </div>
+      <input
+        class="form-control"
+        list="datalistOptionsProgram"
+        id="DataListProgram"
+        placeholder="Please choose the program."
+        @change="onChange($event)"
+      />
+      <datalist id="datalistOptionsProgram">
+        <option
+          v-for="(name, index) in course"
+          :key="index"
+          v-bind:value="name"
+        >
+          {{ name }}
+        </option>
+      </datalist>
+<!-- 
+      <select
+        class="form-select"
+        aria-label="Course select"
+        @change="onChange($event)"
+        placeholder="Please choose the program"
+      >
+        <option
+          v-for="(name, index) in course"
+          :key="index"
+          v-bind:value="name"
+        >
+          {{ name }}
+        </option>
+      </select>-->
     </div>
-    <select
-      class="form-select"
-      aria-label="Course select"
-      @change="onChange($event)"
-    >
-      <option selected>Choose...</option>
-      <option v-for="(name, index) in course" :key="index" v-bind:value="name">
-        {{ name }}
-      </option>
-    </select>
   </div>
 </template>
 
@@ -38,11 +61,11 @@ export default {
   },
   methods: {
     async onChange(event) {
+      console.log( event.target.value)
       await this.$store.dispatch("postCourseDetail", event.target.value);
       this.$emit("Changed");
     },
   },
-  
 };
 </script>
 

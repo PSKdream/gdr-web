@@ -21,6 +21,9 @@ let modelSchema = new Schema(
     cr_selected: {
       type: Boolean,
     },
+    alternatives_submit:{
+      type: String,
+    }
   },
   {
     collection: "model_log",

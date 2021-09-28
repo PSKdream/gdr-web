@@ -21,6 +21,7 @@
         </button>
       </div>
     </div>
+
     <div class="mt-3">
       <select
         class="form-select mb-2"
@@ -39,6 +40,12 @@
           {{ name }}
         </option>
       </select>
+    </div>
+    <div>
+      <p class="fw-light fst-italic">
+        Please choose the criteria. You can add more criterias. Click on the
+        Next steps.
+      </p>
     </div>
     <div class="text-center mt-3">
       <button
@@ -59,7 +66,7 @@ export default {
   data() {
     return {
       courseDetail: {},
-      
+
       criteria: new Array(),
       criteria_choose: new Array(),
 
@@ -87,9 +94,9 @@ export default {
       this.$emit("Changed", state);
     },
     OptionFilters(indexSkip) {
-      let arrFilter = [...this.criteria_choose]
-      arrFilter.splice(indexSkip,1);
-      return this.criteria.filter(word => arrFilter.indexOf(word) === -1);
+      let arrFilter = [...this.criteria_choose];
+      arrFilter.splice(indexSkip, 1);
+      return this.criteria.filter((word) => arrFilter.indexOf(word) === -1);
     },
   },
   beforeMount() {

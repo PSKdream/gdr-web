@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <h2 id="topic" class="text-center mt-4">University Preferences</h2>
+    <p class="fw-light fst-italic mb-0">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use the scale from 1 to 9
+      to define the importance of the universities by each criterion. (1 = Equal
+      importance, 3 = Moderate importance, 5 = Strong importance, 7 = Very
+      strong or demonstrated importance, 9 = Extreme importance and 2,4,6,8 =
+      Intermediate values). Click on the Next step to get results.
+    </p>
     <!-- model pop up-->
     <div
       class="modal fade"
@@ -35,7 +42,7 @@
     </div>
 
     <div
-      class="University-Preferences mt-5"
+      class="University-Preferences mt-4"
       v-for="(cri, index) in criteria_choose"
       :key="index"
     >
@@ -269,6 +276,7 @@ export default {
       if (textConfrimCR != "" && this.CrSelected === true) {
         let confirmCR = confirm(
           "Consistency Ratio is unacceptable.\n" + textConfrimCR
+           +"\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
         );
         if (confirmCR === false) return;
         this.cr_change = false;
