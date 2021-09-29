@@ -155,12 +155,17 @@
     </div>
 
     <div class="text-end mt-5 me-3">
-      <h6 class="" @click="onClickNext">
+      <h6 class="" @click="onClickNext" v-if="next === false">
         <a href="#topic" class="text-success text-decoration-none">
           Next
           <i class="bi bi-arrow-right-square-fill"></i>
         </a>
       </h6>
+      <div
+        class="spinner-border text-secondary"
+        role="status"
+        v-if="next === true"
+      ></div>
     </div>
     <!-- 
     <p>{{ alternatives_matrix }}</p>
@@ -190,6 +195,8 @@ export default {
       course_detail: null,
       text_c: null,
       text_d: null,
+
+      next: false,
     };
   },
 
@@ -249,22 +256,41 @@ export default {
       //console.log("cr : ", cr);
       return cr;
     },
-    onClickNext() {
+    async onClickNext() {
       let size = this.criteria_choose.length;
       let textConfrimCR = "";
+
       for (let i = 0; i < size; i++) {
         if (this.checkZero(this.alternatives_matrix[i]) === true) return;
+        this.next = true;
+        //convert nj to array
+        let matrix = this.alternatives_matrix[i];
+        let size = matrix.shape[0];
+        let dataset = new Array(size);
+        for (let index = 0; index < size; index++) {
+          dataset[index] = new Array(size);
+          for (let index2 = 0; index2 < size; index2++) {
+            dataset[index][index2] = matrix.get(index, index2);
+          }
+        }
 
-        this.alternatives_eigenvector[i] = this.eigenvector(
-          this.alternatives_matrix[i]
-        );
+        // post fuzzy asp
+        var fahp_var = null;
+        try {
+          fahp_var = await PostService.FuzzyAhp(dataset);
+          fahp_var = fahp_var.data;
+        } catch (err) {
+          alert(err);
+          return;
+        }
+        this.alternatives_eigenvector[i] = fahp_var["normalized_weights"];
 
         let cr = this.consistencyRatio(
           this.alternatives_matrix[i],
           this.alternatives_eigenvector[i]
         );
 
-        if (cr >= 0.1) {
+        if (cr >= 0.1 && cr != Infinity) {
           textConfrimCR +=
             "   Criteria : " +
             this.criteria_choose[i] +
@@ -275,10 +301,14 @@ export default {
       }
       if (textConfrimCR != "" && this.CrSelected === true) {
         let confirmCR = confirm(
-          "Consistency Ratio is unacceptable.\n" + textConfrimCR
-           +"\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
+          "Consistency Ratio is unacceptable.\n" +
+            textConfrimCR +
+            "\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
         );
-        if (confirmCR === false) return;
+        if (confirmCR === false) {
+          this.next = false;
+          return;
+        }
         this.cr_change = false;
         //this.CrSelected = false
       }

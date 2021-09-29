@@ -51,15 +51,44 @@
               <ol class="mb-0">
                 <li v-for="item in chart_decision" :key="item">
                   {{ item[0] }}
-                  <a style="font-size : 60%"
+                  <a
+                    style="font-size: 60%"
                     href="#topic"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"
                     :data-bs-whatever="item[0]"
-                  >Read more</a>
+                    >Read more</a
+                  >
                 </li>
               </ol>
             </h5>
+          </div>
+        </div>
+        <div class="mt-4 mb-2 card">
+          <h5 class="text-center mt-5">Confrim your decision</h5>
+          <div class="row justify-content-center">
+            <div class="mt-4 col-10">
+              <select
+                class="form-select mb-2"
+                aria-label="crteria select"
+                v-model="alternatives_submit"
+              >
+                <option selected>Choose...</option>
+                <option
+                  v-for="(name, index) in alternatives_choose"
+                  :key="index"
+                  v-bind:value="name"
+                >
+                  {{ name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center mt-3 mb-5">
+            <button type="button" class="btn btn-success" @click="onClickNext">
+              Submit
+            </button>
           </div>
         </div>
       </div>
@@ -134,12 +163,9 @@
             </bar-chart>
           </div>
         </div>
-      <div class="d-flex justify-content-center  mb-4">
-        <button type="button" class="btn btn-success"  @click="onClickNext">Next</button>
-    </div>
       </div>
     </div>
-    
+
     <!--
     alternatives_eigenvector
     {{alternatives_eigenvector}}
@@ -175,6 +201,8 @@ export default {
     return {
       course: this.$store.getters.getCourse,
 
+      alternatives_submit: "Choose...",
+
       summary: null,
       chart_decision: [],
       chart_criteria_importance: [],
@@ -189,8 +217,8 @@ export default {
   },
   methods: {
     onClickNext() {
-          this.$emit("onSubmit");
-      },
+      this.$emit("onSubmit", this.alternatives_submit);
+    },
     ObjectSort(object) {
       object.sort(function (a, b) {
         return a[1] > b[1] ? -1 : a[1] === b[1] ? 0 : 1;

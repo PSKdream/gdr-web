@@ -9,7 +9,7 @@
     </div>
     <div class="row justify-content-center" v-if="CrChecked !== null">
       <!-- Progress Bar -->
-      <div class="m-4 col-md-6 col-10" v-if="submit_step === null">
+      <div class="m-4 col-md-6 col-10" >
         <div class="progress ms-2 me-2" style="height: 1px">
           <div
             class="progress-bar"
@@ -78,21 +78,11 @@
       </div>
       <!-- summary -->
       <SummaryWeight
-        v-if="criteria != null && alternatives != null && submit_step == null"
+        v-if="criteria != null && alternatives != null"
         :alternatives_eigenvector="alternatives.eigenvector"
         :criteria_eigenvector="criteria.eigenvector"
         @onSubmit="SummaryReturn"
       ></SummaryWeight>
-      <SubmitComponent
-        v-if="
-          criteria != null &&
-          alternatives != null &&
-          submit_step != null &&
-          finish_step == null
-        "
-        @onSubmit="SubmitReturn"
-      >
-      </SubmitComponent>
       <div class="col-8 mt-5" v-if="finish_step != null">
         <h2 class="text-center mb-4">
           Thank you for joining the Graduate Degree Recommemder System
@@ -113,7 +103,6 @@ import CriteriaWeight from "./WeightProcess/CriteriaWeight.vue";
 import AlternativesWeight from "./WeightProcess/AlternativesWeight.vue";
 import SummaryWeight from "./WeightProcess/SummaryWeight.vue";
 import CrForm from "./WeightProcess/FormCR.vue";
-import SubmitComponent from "./WeightProcess/Submit.vue";
 export default {
   data() {
     return {
@@ -123,7 +112,6 @@ export default {
       criteria: null,
       alternatives: null,
 
-      submit_step: null,
       finish_step: null,
 
       criteria_choose: this.$store.getters.getCriteria, //["c1", "c2", "c5"],
@@ -135,7 +123,6 @@ export default {
     AlternativesWeight,
     SummaryWeight,
     CrForm,
-    SubmitComponent,
   },
   methods: {
     CrReturn(value) {
@@ -153,10 +140,8 @@ export default {
       this.progress = 100;
       this.alternatives = value;
     },
-    SummaryReturn() {
-      this.submit_step = true;
-    },
-    SubmitReturn(value) {
+    SummaryReturn(value) {
+      this.finish_step = true;
       if (this.criteria != null && this.alternatives != null) {
         let obj = {
           course: this.$store.getters.getCourse[0],
@@ -169,7 +154,6 @@ export default {
         };
         PostService.insertModelLog(obj);
       }
-      this.finish_step = true;
       setTimeout(() => { console.log("Goodbye!"); this.$router.push("/");}, 800);
       
 
@@ -180,13 +164,11 @@ export default {
           this.criteria = null;
           this.alternatives = null;
           this.summary = null;
-          this.submit_step = null;
           this.progress = 0;
           break;
         case 2:
           this.alternatives = null;
           this.summary = null;
-          this.submit_step = null;
           this.progress = 50;
           break;
       }

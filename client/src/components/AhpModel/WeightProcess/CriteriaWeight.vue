@@ -2,10 +2,11 @@
   <div class="container">
     <h2 id="topic" class="text-center mt-4">Criteria Preferences</h2>
     <p class="fw-light fst-italic mb-0">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use the scale from 1 to 9 to define the importance of criteria. (1 = Equal
-      importance, 3 = Moderate importance, 5 = Strong importance, 7 = Very
-      strong or demonstrated importance, 9 = Extreme importance and 2,4,6,8 =
-      Intermediate values) After pairwise comparison, click on the Next step.
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Use the scale from 1 to 9
+      to define the importance of criteria. (1 = Equal importance, 3 = Moderate
+      importance, 5 = Strong importance, 7 = Very strong or demonstrated
+      importance, 9 = Extreme importance and 2,4,6,8 = Intermediate values)
+      After pairwise comparison, click on the Next step.
     </p>
     <div
       class="Criteria-Preferences"
@@ -97,15 +98,21 @@
       </div>
     </div>
     <div class="text-end mt-5 me-3">
-      <h6 class="" @click="onClickNext">
+      <h6 class="" @click="onClickNext" v-if="next === false">
         <a href="#topic" class="text-success text-decoration-none">
           Next
           <i class="bi bi-arrow-right-square-fill"></i>
         </a>
       </h6>
+      <div
+        class="spinner-border text-secondary"
+        role="status"
+        v-if="next === true"
+      >
+      </div>
     </div>
-    <!-- 
-    <p>{{ criteria_matrix }}</p>
+    <!--
+    <p>{{ criteria_matrix }}</p> 
     <p>eigenvector {{ criteria_eigenvector }}</p>
     <p>c {{ text_c }}</p>
     <p>d {{ text_d }}</p>
@@ -115,6 +122,8 @@
 
 <script>
 import nj from "numjs";
+import PostService from "../../../PostService";
+//import axios from "axios";
 // import ndarray from 'ndarray'
 export default {
   props: ["CrSelected"],
@@ -126,6 +135,8 @@ export default {
       criteria_eigenvector: null,
       text_c: null,
       text_d: null,
+
+      next: false,
     };
   },
 
@@ -146,7 +157,7 @@ export default {
         }
       }
     },
-    eigenvector(matrix) {
+    /*eigenvector(matrix) {
       let size = matrix.shape[0];
       let sumArr = new Array(size);
       for (let col = 0; col < size; col++) {
@@ -164,7 +175,7 @@ export default {
         eigen[row] /= size;
       }
       return eigen;
-    },
+    },*/
     consistencyRatio(matrixValue, eigenvector) {
       let ri = [
         0, 0, 0.58, 0.9, 1.12, 1.24, 1.32, 1.14, 1.45, 1.49, 1.51, 1.48, 1.56,
@@ -185,22 +196,50 @@ export default {
       //  console.log("cr : ", cr);
       return cr;
     },
-    onClickNext() {
+    async onClickNext() {
       if (this.checkZero(this.criteria_matrix) === true) return;
+      this.next = true;
+      //convert nj to array
+      let matrix = this.criteria_matrix;
+      let size = matrix.shape[0];
+      let dataset = new Array(size);
+      for (let index = 0; index < size; index++) {
+        dataset[index] = new Array(size);
+        for (let index2 = 0; index2 < size; index2++) {
+          dataset[index][index2] = matrix.get(index, index2);
+        }
+      }
 
-      this.criteria_eigenvector = this.eigenvector(this.criteria_matrix);
+      // post fuzzy asp
+      var fahp_var = null;
+      try {
+        fahp_var = await PostService.FuzzyAhp(dataset);
+        fahp_var = fahp_var.data;
+      } catch (err) {
+        alert(err);
+        return;
+      }
+
+      this.criteria_eigenvector = fahp_var["normalized_weights"];
+
+      console.log(this.criteria_eigenvector);
 
       let cr = this.consistencyRatio(
         this.criteria_matrix,
         this.criteria_eigenvector
       );
 
-      if (cr >= 0.1 && this.CrSelected === true) {
+      if (cr >= 0.1 && this.CrSelected === true && cr != Infinity) {
         let confirmCR = confirm(
-          "Consistency Ratio is unacceptable.\n" + "C.R. : " + cr
-          +"\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
+          "Consistency Ratio is unacceptable.\n" +
+            "C.R. : " +
+            cr +
+            "\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
         );
-        if (confirmCR === false) return;
+        if (confirmCR === false) {
+          this.next = false;
+          return;
+        }
         this.cr_change = false;
       }
       this.$emit("onSubmit", {

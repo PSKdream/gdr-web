@@ -46,7 +46,7 @@
           </datalist>
         </div>
         <div for="crireria" class="card-body">
-          <p class="mt-3">Crireria</p>
+          <p class="mt-3">Information of program</p>
           <div
             v-bind:class="'m-2 mt-0 ms-4 check-' + name"
             v-for="(name, index) in criteriaList"
@@ -112,7 +112,8 @@ export default {
             criteria: criteria,
             detail : this.criteriaDetail
           });
-          this.$router.push("/course");
+          alert("Thank you...")
+          this.$router.push("/");
         } catch (err) {
           alert(err);
         }
