@@ -30,6 +30,9 @@ const routes = [
     path: "/insert-course",
     name: "insert-course",
     component: InsertCourseComponent,
+    meta: {
+      title: 'insert-course'
+    }
     //props: true
   },
   {
@@ -59,7 +62,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

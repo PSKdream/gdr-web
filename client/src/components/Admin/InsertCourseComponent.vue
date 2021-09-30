@@ -68,7 +68,11 @@
               style="padding-left: 2.6rem"
               v-if="criteriaChoose[index] == true"
             >
-              <textarea class="form-control" v-model="criteriaDetail[name]" placeholder="detail"></textarea>
+              <textarea
+                class="form-control"
+                v-model="criteriaDetail[name]"
+                placeholder="detail"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -89,12 +93,14 @@ export default {
       course: "",
       university: "",
       criteriaChoose: null,
-      criteriaDetail:{},
+      criteriaDetail: {},
 
       courseList: [],
       universityList: [],
       criteriaList: [],
       error: null,
+
+      url_search: null,
     };
   },
   methods: {
@@ -110,10 +116,14 @@ export default {
             course: this.course,
             university: this.university,
             criteria: criteria,
-            detail : this.criteriaDetail
+            detail: this.criteriaDetail,
           });
-          alert("Thank you...")
-          this.$router.push("/");
+          if (this.url_search === "?admin") {
+            this.$router.push("/admin");
+          } else {
+            alert("Thank you...");
+            this.$router.push("/");
+          }
         } catch (err) {
           alert(err);
         }
@@ -123,6 +133,7 @@ export default {
     },
   },
   async created() {
+    this.url_search = window.location.search;
     try {
       await this.$store.dispatch("postCourse");
       this.courseList = this.$store.getters.getCourse;

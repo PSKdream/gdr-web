@@ -7,7 +7,7 @@
           <button
             type="button"
             class="btn btn-sm btn-info"
-            @click="this.$router.push('/insert-course')"
+            @click="this.$router.push('/insert-course?admin')"
           >
             Insert Program
           </button>

@@ -22,7 +22,7 @@
             <li class="nav-item">
               <a class="nav-link " aria-current="page" href="/">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" v-if="pathname !== '/insert-course'">
               <a class="nav-link " href="/model">Model</a>
             </li>
             <li class="nav-item" v-if="false">
@@ -40,3 +40,16 @@
   
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      pathname :  null
+    }
+  },
+  mounted()   {
+    this.pathname = window.location.pathname
+    //console.log(window.location.pathname)
+  },
+}
+</script>
