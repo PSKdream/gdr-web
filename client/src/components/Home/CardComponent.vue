@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-11 mt-5">
+  <div class="col-md-11 mt-3">
     <div class="border-dark border-bottom border-2">
       <h3 class="md-0">Not sure what you want to study?</h3>
     </div>

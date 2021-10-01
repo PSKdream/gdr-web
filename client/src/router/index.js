@@ -5,11 +5,29 @@ import HomeComponent from "@/components/Home/HomeComponent.vue"
 
 import SearchComponent from '@/components/Mockup/SeachComponent.vue'
 import CourseDetail from '@/components/Mockup/CourseDetail.vue'
+import ForumComponent from '@/components/Mockup/Forum.vue'
+import AdsComponent from '@/components/Mockup/Ads.vue'
+import EventsComponent from '@/components/Mockup/Events.vue'
 
 import InsertCourseComponent from "@/components/Admin/InsertCourseComponent.vue";
 import CourseComponent from "@/components/Admin/CourseComponent.vue";
 
 const routes = [
+  {
+    path: "/forum",
+    name: "forum",
+    component: ForumComponent,
+  },
+  {
+    path: "/ads",
+    name: "ads",
+    component: AdsComponent,
+  },
+  {
+    path: "/events",
+    name: "events",
+    component: EventsComponent,
+  },
   {
     path: "/",
     name: "home",
