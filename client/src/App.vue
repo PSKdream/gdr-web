@@ -25,6 +25,15 @@
             <li class="nav-item" v-if="pathname !== '/insert-course'">
               <a class="nav-link " href="/model">Model</a>
             </li>
+            <li class="nav-item" v-if="pathname !== '/insert-course'">
+              <a class="nav-link " href="/forum">Forum</a>
+            </li>
+            <li class="nav-item" v-if="pathname !== '/insert-course'">
+              <a class="nav-link " href="/ads">Ads</a>
+            </li>
+            <li class="nav-item" v-if="pathname !== '/insert-course'">
+              <a class="nav-link " href="/events">Events</a>
+            </li>
             <li class="nav-item" v-if="false">
               <a class="nav-link " href="/course" >Program (Admin)</a>
             </li>
