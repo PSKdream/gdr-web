@@ -1,6 +1,6 @@
 <template>
   <div class="container row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-12">
       <div class="mt-5 mb-2 border-bottom btn-toolbar justify-content-between">
         <h3>View for {{ level }}</h3>
         <div>
@@ -29,7 +29,10 @@
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ data.course }}</td>
             <td>{{ data.university }}</td>
+            <td></td>
+            <!-- 
             <td>@{{ data.criteria }}</td>
+            -->
             <td v-if="level === 'admin'">
               <!-- 
             <i
@@ -53,12 +56,11 @@
 <script>
 import PostService from "../../PostService.js";
 export default {
-  
   data() {
     return {
       course: null,
       error: null,
-      level : 'admin'
+      level: "admin",
     };
   },
   methods: {

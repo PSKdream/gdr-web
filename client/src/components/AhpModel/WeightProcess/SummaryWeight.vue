@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4 mb-2 container col-md-11">
+  <div class="mt-4 mb-5 container col-lg-11 col-12">
     <!-- model pop up-->
     <div
       class="modal fade"

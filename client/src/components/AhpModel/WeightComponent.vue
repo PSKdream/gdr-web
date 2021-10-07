@@ -3,7 +3,7 @@
     <!-- CR Form -->
     <div class="row justify-content-center" v-if="CrChecked === null">
       <h2 class="text-center mt-4">AHP Model Information</h2>
-      <div class="col-md-8 card pb-3 mt-3 mb-5">
+      <div class="col-lg-8 col-10 card pb-3 mt-3 mb-5">
         <CrForm @onSubmit="CrReturn"></CrForm>
       </div>
     </div>
@@ -62,7 +62,7 @@
       </div>
       <!-- Weight -->
       <div
-        class="col-md-10 card pb-3 mt-5 mb-5"
+        class="col-lg-10 col-12 card pb-3 mt-5 mb-5"
         v-if="criteria === null || alternatives === null"
       >
         <CriteriaWeight

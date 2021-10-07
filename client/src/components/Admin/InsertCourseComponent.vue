@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-content-center mt-5">
-    <div class="col-md-7 card mb-5 ps-0 pe-0">
+  <div class="row justify-content-center mt-5 mb-5">
+    <div class="col-lg-7 col-12 card mb-5 ps-0 pe-0">
       <!-- Content goes here -->
       <div class="card-header">
         <h2 class="text-center pt-2 pb-2">Insert Program</h2>
@@ -64,19 +64,33 @@
               </label>
             </div>
             <div
-              class="input-group mt-2 mb-3 pe-4"
+              class="input-group mt-2 pe-4"
               style="padding-left: 2.6rem"
               v-if="criteriaChoose[index] == true"
             >
               <textarea
                 class="form-control"
+                v-if="
+                  name != 'มหาวิทยาลัยรัฐ / เอกชน (State/Private university)'
+                "
                 v-model="criteriaDetail[name]"
-                placeholder="detail"
+                placeholder="Please fill in the details"
               ></textarea>
+              <select
+                class="form-select"
+                aria-label="select"
+                v-model="criteriaDetail[name]"
+                v-if="
+                  name == 'มหาวิทยาลัยรัฐ / เอกชน (State/Private university)'
+                "
+              >
+                <option >สถาบันอุดมศึกษาในกำกับของรัฐ</option>
+                <option >สถาบันอุดมศึกษาเอกชน</option>
+              </select>
             </div>
           </div>
         </div>
-        <div class="text-center card-body">
+        <div class="text-center pt-0 card-body">
           <button type="submit" class="btn btn-success mt-3">Save</button>
         </div>
       </form>

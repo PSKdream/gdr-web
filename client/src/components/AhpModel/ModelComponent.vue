@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-10">
       <!-- Content goes here -->
       <h1 class="text-center">Model</h1>
       <form class="mt-5">
