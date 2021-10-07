@@ -20,7 +20,9 @@
             <th scope="col">#</th>
             <th scope="col">Program</th>
             <th scope="col">University</th>
+            <!-- 
             <th scope="col">Criteria</th>
+             -->
             <td scope="col" v-if="level === 'admin'">Action</td>
           </tr>
         </thead>
@@ -29,7 +31,7 @@
             <th scope="row">{{ index + 1 }}</th>
             <td>{{ data.course }}</td>
             <td>{{ data.university }}</td>
-            <td></td>
+    
             <!-- 
             <td>@{{ data.criteria }}</td>
             -->

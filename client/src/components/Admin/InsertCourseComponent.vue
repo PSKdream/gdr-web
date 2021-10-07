@@ -7,8 +7,19 @@
       </div>
 
       <form class="mt-5 m-2 card-body" @submit.prevent="onSubmit">
-        <div for="course" class="card-body">
+        <div for="course pb-0" class="card-body">
           <label for="courseNameList" class="form-label">Program</label>
+          <select
+            class="form-select pb-0"
+            aria-label="courseNameList"
+            v-model="course"
+          >
+            <option>หลักสูตรปรัชญาดุษฎีบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ</option>
+            <option>
+              หลักสูตรวิทยาศาสตรมหาบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ
+            </option>
+          </select>
+          <!-- 
           <input
             class="form-control"
             list="courselistOptions"
@@ -24,7 +35,7 @@
             >
               {{ name }}
             </option>
-          </datalist>
+          </datalist>-->
         </div>
         <div for="university" class="card-body">
           <label for="universityList" class="form-label mt-3">University</label>
@@ -84,8 +95,8 @@
                   name == 'มหาวิทยาลัยรัฐ / เอกชน (State/Private university)'
                 "
               >
-                <option >สถาบันอุดมศึกษาในกำกับของรัฐ</option>
-                <option >สถาบันอุดมศึกษาเอกชน</option>
+                <option>สถาบันอุดมศึกษาในกำกับของรัฐ</option>
+                <option>สถาบันอุดมศึกษาเอกชน</option>
               </select>
             </div>
           </div>
