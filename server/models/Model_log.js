@@ -27,6 +27,7 @@ let modelSchema = new Schema(
   },
   {
     collection: "model_log",
+    timestamps: true
   }
 );
 
