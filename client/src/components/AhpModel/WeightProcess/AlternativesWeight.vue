@@ -335,26 +335,22 @@ export default {
   },
   async mounted() {
     this.course_detail = await PostService.getDetailCourse(
-      this.$store.getters.getCourse
+      this.$store.getters.getCourse[0]
     );
 
     var course_detail = this.course_detail;
     var alternatives_choose = this.alternatives_choose;
     var exampleModal = document.getElementById("exampleModal");
     exampleModal.addEventListener("show.bs.modal", function (event) {
-      // Button that triggered the modal
       var button = event.relatedTarget;
-      // Extract info from data-bs-* attributes
       var recipient = button.getAttribute("data-bs-whatever");
-      // If necessary, you could initiate an AJAX request here
-      // and then do the updating in a callback.
-      //
-      // Update the modal's content.
       var modalTitle = exampleModal.querySelector(".modal-title");
       var modalBodyParagraph = exampleModal.querySelector(".modal-body");
-
+      
       modalTitle.textContent = recipient;
       let textParagraph = "";
+
+
       for (let index = 0; index < course_detail.length; index++) {
         const element = course_detail[index];
         if (alternatives_choose.indexOf(element.university) === -1) continue;
@@ -367,7 +363,7 @@ export default {
           element.detail[recipient] +
           "</p>";
       }
-      console.log(textParagraph);
+      //console.log(textParagraph);
       modalBodyParagraph.innerHTML = textParagraph;
     });
   },

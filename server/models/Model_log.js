@@ -21,7 +21,7 @@ let modelSchema = new Schema(
     cr_selected: {
       type: Boolean,
     },
-    alternatives_submit:{
+    code_submit:{
       type: String,
     }
   },

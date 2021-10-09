@@ -6,7 +6,18 @@ const url = "https://pskdream.pythonanywhere.com/fahp";
 //model
 let courseModel = require("../models/Course.js");
 let criteriaModel = require("../models/Criteria.js");
-let logModel = require("../models/Model_log");
+let logModel = require("../models/Model_log.js");
+let codeModel = require("../models/Code.js");
+
+apiRoute.route('/code').get((req, res, next) => {
+  codeModel.find().distinct('code',(error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 apiRoute.route("/fahp").post(async (req, res, next) => {
   //console.log(req.body.text);

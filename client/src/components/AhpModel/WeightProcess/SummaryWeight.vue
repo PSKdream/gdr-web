@@ -65,13 +65,20 @@
           </div>
         </div>
         <div class="mt-4 mb-2 card">
-          <h5 class="text-center mt-5">Confrim your decision</h5>
+          <h5 class="text-center mt-5">Input University Code</h5>
           <div class="row justify-content-center">
             <div class="mt-4 col-10">
+              <input
+                type="text"
+                class="form-control code-university"
+                placeholder="code"
+                v-model="code_submit"
+              />
+              <!-- 
               <select
                 class="form-select mb-2"
                 aria-label="crteria select"
-                v-model="alternatives_submit"
+                v-model="code_submit"
               >
                 <option selected>Choose...</option>
                 <option
@@ -82,6 +89,7 @@
                   {{ name }}
                 </option>
               </select>
+              -->
             </div>
           </div>
 
@@ -195,13 +203,15 @@
 </template>
 
 <script>
+import PostService from "../../../PostService";
 export default {
   props: ["criteria_eigenvector", "alternatives_eigenvector"],
   data() {
     return {
       course: this.$store.getters.getCourse,
 
-      alternatives_submit: "Choose...",
+      code_submit: "",
+      universityCode: [],
 
       summary: null,
       chart_decision: [],
@@ -217,7 +227,10 @@ export default {
   },
   methods: {
     onClickNext() {
-      this.$emit("onSubmit", this.alternatives_submit);
+      if(this.universityCode.indexOf(this.code_submit) != -1)
+        this.$emit("onSubmit", this.code_submit);
+      else
+        alert('Code invalid')
     },
     ObjectSort(object) {
       object.sort(function (a, b) {
@@ -237,6 +250,8 @@ export default {
     },
   },
   async mounted() {
+    this.universityCode = await PostService.getCode()
+
     // summary
     this.summary = new Array(this.alternatives_choose.length);
     for (let uni = 0; uni < this.alternatives_choose.length; uni++) {

@@ -50,6 +50,7 @@ export default {
   },
   beforeMount() {
     this.program = this.$store.getters.getCourse;
+    //this.$store.commit('SetCourse',this.program)
     this.criteria_choose = this.$store.getters.getCriteria;
     this.alternatives_choose = this.$store.getters.getUniversity;
   },

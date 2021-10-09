@@ -4,6 +4,19 @@ const url = "api/";
 //const url = 'http://localhost:4000/api/';
 
 class PostService {
+  static getCode(){
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.get(url + "code");
+        const data = res.data;
+        resolve(data);
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+
   static FuzzyAhp(text) {
     //console.log(text.email)
     return axios.post(url + "fahp", {

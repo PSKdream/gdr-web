@@ -150,7 +150,7 @@ export default {
           criteria_matrix: this.criteria.matrix,
           alternatives_matrix: this.alternatives.matrix,
           cr_selected: this.CrChecked,
-          alternatives_submit: value,
+          code_submit: value,
         };
         PostService.insertModelLog(obj);
       }
