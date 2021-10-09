@@ -14,9 +14,9 @@
             aria-label="courseNameList"
             v-model="course"
           >
-            <option>หลักสูตรปรัชญาดุษฎีบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ</option>
+            <option>Doctor of Philosophy Program in Information Technology (Ph.D. in IT)</option>
             <option>
-              หลักสูตรวิทยาศาสตรมหาบัณฑิต สาขาวิชาเทคโนโลยีสารสนเทศ
+              Master of Science Program in Information Technology (MSIT)
             </option>
           </select>
           <!-- 
