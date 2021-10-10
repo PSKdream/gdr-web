@@ -55,7 +55,7 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             :data-bs-whatever="cri"
-          ></a>
+          >read</a>
         </h5>
       </div>
 
