@@ -18,7 +18,7 @@
       <div class="col-7 mt-2 pe-5 text-end">
         <h5>Graduate Schools Are Seeking Students Like You</h5>
         <p class="fs-6 mb-2">Find Your Fit with our Featured Schools!</p>
-        <button type="button" class="btn btn-light btn-sm">
+        <button type="button" class="btn btn-light btn-sm" v-on:click="$router.push('/model')">
           Explore Your Matched Schools
         </button>
         
