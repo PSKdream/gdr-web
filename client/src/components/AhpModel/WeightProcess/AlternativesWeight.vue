@@ -47,7 +47,7 @@
       :key="index"
     >
       <div class="row">
-        <h5>
+        <h6>
           Criteria : {{ cri }}
           <a
             class="bi bi-file-earmark-text"
@@ -55,8 +55,8 @@
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             :data-bs-whatever="cri"
-          >read</a>
-        </h5>
+          >More Detail</a>
+        </h6>
       </div>
 
       <div
