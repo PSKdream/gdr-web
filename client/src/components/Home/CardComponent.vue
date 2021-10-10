@@ -24,11 +24,11 @@
           ></div>
           <div class="content-card">
             <div
-              class="container d-flex align-items-center"
+              class="container d-flex align-items-center justify-content-center"
               style="height: 200px"
             >
               <div class="text-center">
-                <h5 class="text-light">Computing and information technology</h5>
+                <h5 class="text-light">Ph.D. in IT</h5>
                 <button type="button" class="btn btn-warning btn-sm">
                   Read more
                 </button>
@@ -47,11 +47,11 @@
           ></div>
           <div class="content-card">
             <div
-              class="container d-flex align-items-center"
+              class="container d-flex align-items-center justify-content-center"
               style="height: 200px"
             >
               <div class="text-center">
-                <h5 class="text-light">Computing and information technology</h5>
+                <h5 class="text-light text-center">MSIT</h5>
                 <button type="button" class="btn btn-warning btn-sm">
                   Read more
                 </button>
@@ -70,7 +70,7 @@
           ></div>
           <div class="content-card">
             <div
-              class="container d-flex align-items-center"
+              class="container d-flex align-items-center justify-content-center"
               style="height: 200px"
             >
               <div class="text-center">

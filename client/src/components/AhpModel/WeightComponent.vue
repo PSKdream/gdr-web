@@ -9,7 +9,7 @@
     </div>
     <div class="row justify-content-center" v-if="CrChecked !== null">
       <!-- Progress Bar -->
-      <div class="m-4 col-md-6 col-10" >
+      <div class="m-4 col-md-6 col-10" v-if="finish_step == null">
         <div class="progress ms-2 me-2" style="height: 1px">
           <div
             class="progress-bar"
@@ -78,7 +78,7 @@
       </div>
       <!-- summary -->
       <SummaryWeight
-        v-if="criteria != null && alternatives != null"
+        v-if="criteria != null && alternatives != null && finish_step == null"
         :alternatives_eigenvector="alternatives.eigenvector"
         :criteria_eigenvector="criteria.eigenvector"
         @onSubmit="SummaryReturn"
@@ -88,8 +88,8 @@
           Thank you for joining the Graduate Degree Recommemder System
         </h2>
         <div class="d-flex justify-content-center mt-2">
-          <div class="spinner-border text-dark" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden ">Loading...</span>
           </div>
         </div>
       </div>
@@ -154,7 +154,7 @@ export default {
         };
         PostService.insertModelLog(obj);
       }
-      setTimeout(() => { console.log("Goodbye!"); this.$router.push("/");}, 800);
+      setTimeout(() => { console.log("Goodbye!"); this.$router.push("/");}, 2000);
       
 
     },

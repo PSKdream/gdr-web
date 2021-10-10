@@ -1,57 +1,59 @@
 <template>
   <div class="row justify-content-center">
     <SearchComponent></SearchComponent>
-    <div class="d-flex justify-content-center mt-3">
-      <div>
-        <a href="/model">
-          <div class="m-3  image-card" style="background:#bae1ff">
-            <h4
-              class="text-center text-dark"
-              style="text-decoration: none; padding-top: 32px"
-            >
-              Model
-            </h4>
-          </div>
-        </a>
-      </div>
+    <div>
+      <div class="d-flex justify-content-center mt-3">
+        <div>
+          <a href="/model">
+            <div class="m-3 image-card" style="background: #bae1ff">
+              <h4
+                class="text-center text-dark"
+                style="text-decoration: none; padding-top: 32px"
+              >
+                Model
+              </h4>
+            </div>
+          </a>
+        </div>
 
-      <div>
-        <a href="/ads">
-          <div class="m-3  image-card" style="background:#baffc9">
-            <h4
-              class="text-center text-dark"
-              style="text-decoration: none; padding-top: 32px"
-            >
-              Ads
-            </h4>
-          </div>
-        </a>
-      </div>
+        <div>
+          <a href="/ads">
+            <div class="m-3 image-card" style="background: #baffc9">
+              <h4
+                class="text-center text-dark"
+                style="text-decoration: none; padding-top: 32px"
+              >
+                Ads
+              </h4>
+            </div>
+          </a>
+        </div>
 
-      <div>
-        <a href="/events">
-          <div class="m-3  image-card" style="background:#ffdfba">
-            <h4
-              class="text-center text-dark"
-              style="text-decoration: none; padding-top: 32px"
-            >
-              Events
-            </h4>
-          </div>
-        </a>
-      </div>
+        <div>
+          <a href="/events">
+            <div class="m-3 image-card" style="background: #ffdfba">
+              <h4
+                class="text-center text-dark"
+                style="text-decoration: none; padding-top: 32px"
+              >
+                Events
+              </h4>
+            </div>
+          </a>
+        </div>
 
-      <div>
-        <a href="/forum">
-          <div class="m-3  image-card" style="background:#ffffba">
-            <h4
-              class="text-center text-dark"
-              style="text-decoration: none; padding-top: 32px"
-            >
-              Forum
-            </h4>
-          </div>
-        </a>
+        <div>
+          <a href="/forum">
+            <div class="m-3 image-card" style="background: #ffffba">
+              <h4
+                class="text-center text-dark"
+                style="text-decoration: none; padding-top: 32px"
+              >
+                Forum
+              </h4>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
     <CardComponent></CardComponent>

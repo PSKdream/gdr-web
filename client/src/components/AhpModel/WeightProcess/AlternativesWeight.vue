@@ -303,7 +303,7 @@ export default {
         let confirmCR = confirm(
           "Consistency Ratio is unacceptable.\n" +
             textConfrimCR +
-            "\n\nClick Continue to skip C.R. values and go to the next step.\nClick Retry to backward with comparison again."
+            "\n\nClick OK to skip C.R. values and go to the next step.\nClick Cancel to backward with comparison again."
         );
         if (confirmCR === false) {
           this.next = false;
