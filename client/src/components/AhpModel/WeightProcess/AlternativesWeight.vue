@@ -335,7 +335,7 @@ export default {
   },
   async mounted() {
     this.course_detail = await PostService.getDetailCourse(
-      this.$store.getters.getCourse[0]
+      this.$store.getters.getCourseDetail[0]['course']
     );
 
     var course_detail = this.course_detail;

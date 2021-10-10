@@ -36,7 +36,7 @@
     </div>
 
     <div class="d-flex justify-content-center mb-4">
-      <h3>Program : {{ course[0] }}</h3>
+      <h3>Program : {{ course }}</h3>
     </div>
     <div class="row">
       <div class="col-md-4 col-12">
@@ -208,7 +208,7 @@ export default {
   props: ["criteria_eigenvector", "alternatives_eigenvector"],
   data() {
     return {
-      course: this.$store.getters.getCourse,
+      course: this.$store.getters.getCourseDetail[0]['course'],
 
       code_submit: "",
       universityCode: [],

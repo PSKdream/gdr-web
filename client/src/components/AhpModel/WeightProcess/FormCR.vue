@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4 class="text-center mt-4">Program : {{ program[0] }}</h4>
+    <h4 class="text-center mt-4">Program : {{ program }}</h4>
     <div class="row mt-4">
       <div class="col-6 text-center">
         <h5 class="mb-3"><u>Criteria</u></h5>
@@ -49,7 +49,8 @@ export default {
       }
   },
   beforeMount() {
-    this.program = this.$store.getters.getCourse;
+    this.program = this.$store.getters.getCourseDetail[0]['course'];
+    console.log(this.program)
     //this.$store.commit('SetCourse',this.program)
     this.criteria_choose = this.$store.getters.getCriteria;
     this.alternatives_choose = this.$store.getters.getUniversity;

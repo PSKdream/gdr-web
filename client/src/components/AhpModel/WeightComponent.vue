@@ -144,7 +144,7 @@ export default {
       this.finish_step = true;
       if (this.criteria != null && this.alternatives != null) {
         let obj = {
-          course: this.$store.getters.getCourse[0],
+          course: this.$store.getters.getCourseDetail[0]['course'],
           alternatives: this.$store.getters.getUniversity,
           criteria: this.$store.getters.getCriteria,
           criteria_matrix: this.criteria.matrix,
