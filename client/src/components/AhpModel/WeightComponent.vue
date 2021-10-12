@@ -85,7 +85,7 @@
       ></SummaryWeight>
       <div class="col-8 mt-5" v-if="finish_step != null">
         <h2 class="text-center mb-4">
-          Thank you for joining the Graduate Degree Recommemder System
+          Thank you for joining the Graduate Degree Recommender System
         </h2>
         <div class="d-flex justify-content-center mt-2">
           <div class="spinner-border text-warning" role="status">
