@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRoute = express.Router();
 const axios = require("axios");
-const url = "https://gdr-backend.herokuapp.com/fahp";
+const url = "https://gdr-backend.herokuapp.com/ahp";
 
 //model
 let courseModel = require("../models/Course.js");
